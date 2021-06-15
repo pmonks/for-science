@@ -1,29 +1,5 @@
 ; Default configuration file - can be overridden via -c command line option
 {
-  :football-data-api-token    #env FOOTBALL_DATA_API_TOKEN
-
   :discord-api-token          #env DISCORD_API_TOKEN
   :discord-event-channel-size #or [#env DISCORD_EVENT_CHANNEL_SIZE 100]   ; Default = 100 queue slots
-
-  :match-reminder-discord-channel-id #env MATCH_REMINDER_DISCORD_CHANNEL_ID
-
-  ; Match reminder duration, in minutes
-  :match-reminder-duration-mins #or [#env MATCH_REMINDER_DURATION 15]
-
-  :country-to-channel-map {}  ; TODO: Figure out how to parse a map out of an environment variable using aero...
-  :default-reminder-channel-id #env DEFAULT_REMINDER_DISCORD_CHANNEL_ID
-
-  :muted-leagues #split [#env MUTED_LEAGUES "\\s*,\\s*"]
-
-  :quiz-channel-id  #env QUIZ_DISCORD_CHANNEL_ID
-  :video-channel-id #env VIDEO_DISCORD_CHANNEL_ID
-
-  :ist-channel-ids #split [#env IST_CHANNEL_IDS "\\s*,\\s*"]
-
-  :youtube-api-token #env YOUTUBE_API_TOKEN
-  :youtube-channels {}  ; TODO: Figure out how to parse a map out of an environment variable using aero...
-  :default-youtube-emoji #env DEFAULT_YOUTUBE_EMOJI
-
-  :blocklist {}  ; TODO: Figure out how to parse a map out of an environment variable using aero...
-  :blocklist-notification-discord-channel-id #env BLOCKLIST_NOTIFICATION_DISCORD_CHANNEL_ID
 }
