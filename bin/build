@@ -4,10 +4,10 @@ set -e
 set -o pipefail
 
 echo "ℹ️ Downloading dependencies..."
-clojure -Srepro --report stderr -P
+clojure -Srepro -P --report stderr
 
 echo "ℹ️ Updating pom.xml..."
-clojure -Srepro --report stderr -Spom
+clojure -Srepro -Spom --report stderr
 
 echo "ℹ️ Building uberjar..."
-clojure -Srepro --report stderr -X:uberjar
+clojure -Srepro -X:uberjar    # Note: Clojure CLI doesn't support --report with -X 🙄; see https://ask.clojure.org/index.php/10692/clojure-cli-report-incompatible-with-x for details
