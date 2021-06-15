@@ -37,7 +37,7 @@
                          (catch Exception e
                            (str "⚠️ Exception: " (.getMessage e)))))]
     (deref result
-           (* 1000 timeout-in-sec )
+           (* 1000 timeout-in-sec)
            (str "⚠️ Execution terminated after " timeout-in-sec "s."))))
 
 (defn clj-command!
