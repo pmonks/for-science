@@ -32,7 +32,7 @@
   [args event-data]
   (let [channel-id (:channel-id event-data)
         result     (try
-                     (print-str (doall (sci/eval-string args)))
+                     (print-str (sci/eval-string args))
                      (catch Exception e
                        (str "Exception: " (.getMessage e))))]
     (mu/create-message! cfg/discord-message-channel
