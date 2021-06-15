@@ -1,0 +1,4 @@
+{
+  :discord-api-token          #env DISCORD_API_TOKEN
+  :discord-event-channel-size 100
+}

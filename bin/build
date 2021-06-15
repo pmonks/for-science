@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+clojure -Srepro -P
+clojure -Srepro -Spom
+clojure -Srepro -X:uberjar
