@@ -4,10 +4,10 @@ set -e
 set -o pipefail
 
 echo "ℹ️ Downloading dependencies..."
-clojure -Srepro -P
+clojure -Srepro --report stderr -P
 
 echo "ℹ️ Updating pom.xml..."
-clojure -Srepro -Spom
+clojure -Srepro --report stderr -Spom
 
 echo "ℹ️ Building uberjar..."
-clojure -Srepro -X:uberjar
+clojure -Srepro --report stderr -X:uberjar
