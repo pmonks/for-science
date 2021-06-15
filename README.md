@@ -12,6 +12,10 @@ A small [Discord](https://discord.com/) bot that you can send Clojure code to, t
 
 Please review the [privacy policy](https://github.com/pmonks/for-science/blob/main/PRIVACY.md) before interacting with the bot.
 
+## Adding the Bot to Your Discord Server
+
+If you're an administrator of a server, [click here](https://discord.com/oauth2/authorize?client_id=854190844084355082&scope=bot&permissions=2148006976) and follow the instructions.
+
 ## Running Your Own Copy of the Bot
 
 ### Obtaining API Keys
