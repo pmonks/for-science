@@ -1,0 +1,68 @@
+;
+; Copyright © 2021 Peter Monks
+;
+; Licensed under the Apache License, Version 2.0 (the "License");
+; you may not use this file except in compliance with the License.
+; You may obtain a copy of the License at
+;
+;     http://www.apache.org/licenses/LICENSE-2.0
+;
+; Unless required by applicable law or agreed to in writing, software
+; distributed under the License is distributed on an "AS IS" BASIS,
+; WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+; See the License for the specific language governing permissions and
+; limitations under the License.
+;
+; SPDX-License-Identifier: Apache-2.0
+;
+
+{:paths ["src" "resources"]
+ :deps
+   {org.clojure/clojure                 {:mvn/version "1.10.3"}
+    org.clojars.pmonks/clj-2253         {:mvn/version "0.1.0"}
+    org.clojure/tools.logging           {:mvn/version "1.1.0"}
+    ch.qos.logback/logback-classic      {:mvn/version "1.2.3"}
+    org.slf4j/jcl-over-slf4j            {:mvn/version "1.7.30"}
+    org.slf4j/log4j-over-slf4j          {:mvn/version "1.7.30"}
+    org.slf4j/jul-to-slf4j              {:mvn/version "1.7.30"}
+    clojure.java-time/clojure.java-time {:mvn/version "0.3.2"}
+    org.clojure/tools.cli               {:mvn/version "1.0.206"}
+    aero/aero                           {:mvn/version "1.1.6"}
+    mount/mount                         {:mvn/version "0.1.16"}
+    org.suskalo/discljord               {:mvn/version "1.2.3"}
+    borkdude/sci                        {:mvn/version "0.2.5"}}
+ :aliases
+   {; clj -M:run -c /path/to/config.edn
+    :run
+      {:main-opts ["-m" "for-science.main"]}
+
+    ; clj -X:uberjar
+    :uberjar
+      {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.0.216"}}
+       :exec-fn      hf.depstar/uberjar
+       :exec-args    {:jar        "./target/for-science-standalone.jar"
+                      :jar-type   :uber
+                      :main-class "for-science.main"
+                      :aot        true}}
+
+    ; clj -M:check
+    :check
+      {:extra-deps {athos/clj-check {:git/url "https://github.com/athos/clj-check.git"
+                                     :sha     "518d5a1cbfcd7c952f548e6dbfcb9a4a5faf9062"}}
+       :main-opts  ["-m" "clj-check.check"]}
+
+
+    ; clj -M:kondo
+    :kondo
+      {:extra-deps {clj-kondo/clj-kondo {:mvn/version "2021.06.01"}}
+       :main-opts  ["-m" "clj-kondo.main" "--lint" "src" "resources"]}
+
+    ; clj -M:eastwood
+    :eastwood
+      {:extra-deps {jonase/eastwood {:mvn/version "0.4.3"}}
+       :main-opts  ["-m" "eastwood.lint" {:source-paths ["src" "resources"]}]}
+
+    ; clj -M:outdated
+    :outdated
+      {:extra-deps {com.github.liquidz/antq {:mvn/version "0.15.2"}}
+       :main-opts  ["-m" "antq.core"]}}}
