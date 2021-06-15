@@ -12,7 +12,7 @@ pom.xml.asc
 .shell_history
 *.log
 uberjar/
-./config.edn
+/config.edn
 .rebel_readline_history
 .eastwood
 attic
