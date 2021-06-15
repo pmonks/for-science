@@ -21,4 +21,6 @@ jobs:
           tools-deps: latest
 
       - name: Check code
-        run: clojure -Srepro -M:check
+        run:
+          bin/check.sh
+          bin/build
