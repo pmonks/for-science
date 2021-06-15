@@ -10,7 +10,7 @@
 
 A small [Discord](https://discord.com/) bot that you can send Clojure code to, to experiment with the language, demonstrate core language principles, or just mess about.  Note: only supports the subset of Clojure's core provided by the [Small Clojure Interpreter](https://github.com/borkdude/sci).
 
-Please review the [privacy policy](https://github.com/pmonks/for-science/blob/main/PRIVACY.md) before interacting with the deployed instance of the bot on the [Referee Discord Server](https://invite.gg/referees).
+Please review the [privacy policy](https://github.com/pmonks/for-science/blob/main/PRIVACY.md) before interacting with the bot.
 
 ## Running Your Own Copy of the Bot
 
@@ -37,9 +37,9 @@ Currently the bot is only distributed in source form, so regardless of how you i
 
 ### Developer Workflow
 
-The `for-science` source repository has two permanent branches: `main` and `dev`.  **All development must occur either in branch `dev`, or (preferably) in feature branches off of `dev`.**  All PRs must also be submitted against `dev`; the `main` branch is **only** updated from `dev` via PRs created by the core development team.  All other changes submitted to `main` will be rejected.
+The `for-science` source repository is expected to eventually have two permanent branches: `main` and `dev`.  **At that time, all development must occur either in branch `dev`, or (preferably) in feature branches off of `dev`.**  All PRs must also be submitted against `dev`; the `main` branch is **only** updated from `dev` via PRs created by the core development team.  All other changes submitted to `main` will be rejected.
 
-This model allows otherwise unrelated changes to be batched up in the `dev` branch, integration tested there, and then released en masse to the `main` branch.  The `main` branch is configured to auto-deploy to heroku, and therefore this branch must only contain tested, functioning code, and should not be updated too frequently.
+This model allows otherwise unrelated changes to be batched up in the `dev` branch, integration tested there, and then released en masse to the `main` branch.  The `main` branch will eventually be configured to auto-deploy to a production environment, and therefore that branch must only contain tested, functioning code, and should not be updated too frequently.
 
 ## License
 
