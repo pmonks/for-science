@@ -21,6 +21,7 @@ jobs:
           tools-deps: latest
 
       - name: Check code
-        run:
-          bin/check.sh
-          bin/build
+        run: bin/check.sh
+
+      - name: Build code
+        run: bin/build
