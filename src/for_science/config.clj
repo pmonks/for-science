@@ -19,7 +19,6 @@
 (ns for-science.config
   (:require [clojure.java.io        :as io]
             [clojure.string         :as s]
-            [clojure.tools.logging  :as log]
             [clojure.edn            :as edn]
             [clojure.core.async     :as async]
             [java-time              :as tm]
