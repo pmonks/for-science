@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.clojars.pmonks</groupId>
+  <artifactId>for-science</artifactId>
+  <version>1.0.20210614</version>
+  <name>for-science</name>
+  <description>A small Discord bot that you can send Clojure code to, to experiment with the language, demonstrate core language principles, or just mess about.</description>
+  <url>https://github.com/pmonks/for-science</url>
+  <licenses>
+    <license>
+      <name>Apache License 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>pmonks</id>
+      <name>Peter Monks</name>
+      <email>pmonks+forscience@gmail.com</email>
+    </developer>
+  </developers>
+  <scm>
+    <url>https://github.com/pmonks/for-science</url>
+    <connection>scm:git:git://github.com/pmonks/for-science.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/pmonks/for-science.git</developerConnection>
+  </scm>
+  <issueManagement>
+    <system>github</system>
+    <url>https://github.com/pmonks/for-science/issues</url>
+  </issueManagement>
+  <resources>
+    <resource>
+      <directory>resources</directory>
+      <!-- Needed because clj -Spom isn't very good yet -->
+    </resource>
+  </resources>
+</project>
