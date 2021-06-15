@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
 echo "ℹ️  Checking dependencies..."
-clj -M:outdated
+clojure -Srepro -M:outdated
 
 echo "ℹ️  Compiling code..."
-clj -M:check
+clojure -Srepro -M:check
 
 echo "ℹ️  Linting (clj-kondo)..."
-clj -M:kondo
+clojure -Srepro -M:kondo
 
 echo "ℹ️  Linting (eastwood)..."
-clj -M:eastwood
+clojure -Srepro -M:eastwood
