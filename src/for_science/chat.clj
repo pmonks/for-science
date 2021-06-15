@@ -27,14 +27,24 @@
 
 (def prefix "!")
 
+(def timeout-in-sec 2)
+
+(defn- eval-clj
+  "Evaluates the given Clojure code, with a timeout on execution"
+  [code]
+  (let [result (future (try
+                         (print-str (sci/eval-string code))
+                         (catch Exception e
+                           (str "⚠️ Exception: " (.getMessage e)))))]
+    (deref result
+           (* 1000 timeout-in-sec )
+           (str "⚠️ Execution terminated after " timeout-in-sec "s."))))
+
 (defn clj-command!
   "Evaluates the body of the message as Clojure code"
   [args event-data]
   (let [channel-id (:channel-id event-data)
-        result     (try
-                     (print-str (sci/eval-string args))
-                     (catch Exception e
-                       (str "Exception: " (.getMessage e))))]
+        result     (eval-clj args)]
     (mu/create-message! cfg/discord-message-channel
                         channel-id
                         :embed (assoc (mu/embed-template)
