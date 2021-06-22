@@ -29,26 +29,34 @@
 
 (def timeout-in-sec 2)
 
+(def clojure-code-fence-regex #"(?s)```(clojure)??\s+(.*?)```")
+
 (defn- eval-clj
   "Evaluates the given Clojure code, with a timeout on execution"
   [code]
-  (let [result (future (try
-                         (print-str (sci/eval-string code))
-                         (catch Exception e
-                           (str "⚠️ " e))))]
-    (deref result
-           (* 1000 timeout-in-sec)
-           (str "⚠️ Execution terminated after " timeout-in-sec "s."))))
+  (when code
+    (log/debug "Evaluating Clojure forms:" code)
+    (let [result (future (try
+                           (print-str (sci/eval-string code))
+                           (catch Exception e
+                             (str "⚠️ " e))))]
+      (deref result
+             (* 1000 timeout-in-sec)
+             (str "⚠️ Execution terminated after " timeout-in-sec "s.")))))
 
 (defn clj-command!
   "Evaluates the body of the message as Clojure code"
   [args event-data]
-  (let [channel-id (:channel-id event-data)
-        result     (eval-clj args)]
-    (mu/create-message! cfg/discord-message-channel
-                        channel-id
-                        :embed (assoc (mu/embed-template)
-                                      :description (str "```" result "```")))))
+  (when-not (s/blank? args)
+    (let [channel-id          (:channel-id event-data)
+          clojure-code-fences (re-seq clojure-code-fence-regex args)
+          result              (if clojure-code-fences
+                                (eval-clj (s/join "\n" (map #(nth % 2) clojure-code-fences)))   ; 3rd group in the regex is the code
+                                (eval-clj args))]
+      (mu/create-message! cfg/discord-message-channel
+                          channel-id
+                          :embed (assoc (mu/embed-template)
+                                        :description (str "```" result "```"))))))
 
 (defn privacy-command!
   "Provides a link to the for-science privacy policy"
