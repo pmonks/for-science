@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.clojars.pmonks</groupId>
   <artifactId>for-science</artifactId>
-  <version>0.1.20210615</version>
+  <version>0.1.20210622</version>
   <name>for-science</name>
   <description>A small Discord bot that you can send Clojure code to, to experiment with the language, demonstrate core language principles, or just mess about.</description>
   <url>https://github.com/pmonks/for-science</url>
