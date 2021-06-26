@@ -1,9 +1,9 @@
-name: build
+name: lint
 
 on: [push, pull_request]
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,5 +20,5 @@ jobs:
         with:
           tools-deps: latest
 
-      - name: Build code
-        run: bin/build
+      - name: Compile and lint code
+        run: bin/check.sh

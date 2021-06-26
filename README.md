@@ -1,7 +1,7 @@
-| Branch | Build Status | Dependencies Status |
-|-|-|-|
-| [**main**](https://github.com/pmonks/for-science/tree/main) | [![Build Status](https://github.com/pmonks/for-science/workflows/build/badge.svg?branch=main)](https://github.com/pmonks/for-science/actions?query=workflow%3Abuild) | [![Dependencies](https://github.com/pmonks/for-science/workflows/dependencies/badge.svg?branch=main)](https://github.com/pmonks/for-science/actions?query=workflow%3Adependencies) |
-| [**dev**](https://github.com/pmonks/for-science/tree/dev)  | [![Build Status](https://github.com/pmonks/for-science/workflows/build/badge.svg?branch=dev)](https://github.com/pmonks/for-science/actions?query=workflow%3Abuild) | [![Dependencies](https://github.com/pmonks/for-science/workflows/dependencies/badge.svg?branch=dev)](https://github.com/pmonks/for-science/actions?query=workflow%3Adependencies) |
+| Branch | Build | Lint | Dependencies |
+|-|-|-|-|
+| [**main**](https://github.com/pmonks/for-science/tree/main) | [![Build](https://github.com/pmonks/for-science/workflows/build/badge.svg?branch=main)](https://github.com/pmonks/for-science/actions?query=workflow%3Abuild) | [![Lint](https://github.com/pmonks/for-science/workflows/lint/badge.svg?branch=main)](https://github.com/pmonks/for-science/actions?query=workflow%3Alint) | [![Dependencies](https://github.com/pmonks/for-science/workflows/dependencies/badge.svg?branch=main)](https://github.com/pmonks/for-science/actions?query=workflow%3Adependencies) |
+| [**dev**](https://github.com/pmonks/for-science/tree/dev)  | [![Build](https://github.com/pmonks/for-science/workflows/build/badge.svg?branch=dev)](https://github.com/pmonks/for-science/actions?query=workflow%3Abuild) | [![Lint](https://github.com/pmonks/for-science/workflows/lint/badge.svg?branch=dev)](https://github.com/pmonks/for-science/actions?query=workflow%3Alint) | [![Dependencies](https://github.com/pmonks/for-science/workflows/dependencies/badge.svg?branch=dev)](https://github.com/pmonks/for-science/actions?query=workflow%3Adependencies) |
 
 [![Open Issues](https://img.shields.io/github/issues/pmonks/for-science.svg)](https://github.com/pmonks/for-science/issues)
 [![License](https://img.shields.io/github/license/pmonks/for-science.svg)](https://github.com/pmonks/for-science/blob/main/LICENSE)

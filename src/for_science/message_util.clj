@@ -19,7 +19,8 @@
 (ns for-science.message-util
   (:require [clojure.tools.logging :as log]
             [java-time             :as tm]
-            [discljord.messaging   :as dm]))
+            [discljord.messaging   :as dm]
+            [discljord.formatting  :as df]))
 
 (defn- check-response-and-throw
   [response]
@@ -46,17 +47,23 @@
   (log/debug "Sending message to Discord channel" (str channel-id " with args:") args)
   (check-response-and-throw @(apply dm/create-message! discord-message-channel channel-id args)))
 
-(defn create-reaction!
-  "A version of discljord.message/create-reaction! that throws errors."
-  [discord-message-channel channel-id message-id reaction]
-  (log/debug "Adding reaction" reaction "to message-id" message-id)
-  (check-response-and-throw @(dm/create-reaction! discord-message-channel channel-id message-id reaction)))
+(defn edit-message!
+  "A version of discljord.message/edit-message! that throws errors."
+  [discord-message-channel channel-id message-id & args]
+  (log/debug "Editing message" message-id "in Discord channel" (str channel-id " with args:") args)
+  (check-response-and-throw @(apply dm/edit-message! discord-message-channel channel-id message-id args)))
 
 (defn delete-message!
   "A version of discljord.message/delete-message! that throws errors."
   [discord-message-channel channel-id message-id]
   (log/debug "Deleting message-id" message-id)
   (check-response-and-throw @(dm/delete-message! discord-message-channel channel-id message-id)))
+
+(defn create-reaction!
+  "A version of discljord.message/create-reaction! that throws errors."
+  [discord-message-channel channel-id message-id reaction]
+  (log/debug "Adding reaction" reaction "to message-id" message-id)
+  (check-response-and-throw @(dm/create-reaction! discord-message-channel channel-id message-id reaction)))
 
 (defn create-dm!
   "A version of discljord.message/create-dm! that throws errors."
@@ -103,11 +110,16 @@
   "Convenience method that creates a link to the given channel-id, for embedding in message bodies"
   [channel-id]
   (when channel-id
-    (str "<#" channel-id ">")))
+    (df/mention-channel channel-id)))
 
 (defn user-link
   "Convenience method that creates a link to the given user-id, for embedding in message bodies"
   [user-id]
   (when user-id
-    (str "<@" user-id ">")))
+    (df/mention-user user-id)))
 
+(defn message-url
+  "Convenience method that creates a URL to a specific message"
+  [guild-id channel-id message-id]
+  (when (and guild-id channel-id message-id)
+    (str "https://discord.com/channels/" guild-id "/" channel-id "/" message-id)))
