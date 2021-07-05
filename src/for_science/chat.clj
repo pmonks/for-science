@@ -45,7 +45,7 @@
              (str "⚠️ Execution terminated after " timeout-in-sec "s.")))))
 
 (defn clj-command!
-  "Evaluates the body of the message as Clojure code"
+  "Evaluates the body of the message as Clojure code, or, if the message contains clojure or unqualified code fences, combines and evaluates them (ignoring everything outside the code fences, thereby enabling 'literate' style messages)"
   [args event-data]
   (when-not (s/blank? args)
     (let [channel-id          (:channel-id event-data)

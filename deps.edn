@@ -38,7 +38,7 @@
 
     ; clj -X:uberjar
     :uberjar
-      {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.0.216"}}
+      {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.245"}}
        :exec-fn      hf.depstar/uberjar
        :exec-args    {:jar        "./target/for-science-standalone.jar"
                       :jar-type   :uber
@@ -59,7 +59,7 @@
 
     ; clj -M:eastwood
     :eastwood
-      {:extra-deps {jonase/eastwood {:mvn/version "0.6.0"}}
+      {:extra-deps {jonase/eastwood {:mvn/version "0.7.1"}}
        :main-opts  ["-m" "eastwood.lint" {:source-paths ["src" "resources"]}]}
 
     ; clj -M:outdated
