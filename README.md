@@ -1,3 +1,5 @@
+| | | | |
+|---:|:---:|:---:|:---:|
 | [**main**](https://github.com/pmonks/for-science/tree/main) | [![Build](https://github.com/pmonks/for-science/workflows/build/badge.svg?branch=main)](https://github.com/pmonks/for-science/actions?query=workflow%3Abuild) | [![Lint](https://github.com/pmonks/for-science/workflows/lint/badge.svg?branch=main)](https://github.com/pmonks/for-science/actions?query=workflow%3Alint) | [![Dependencies](https://github.com/pmonks/for-science/workflows/dependencies/badge.svg?branch=main)](https://github.com/pmonks/for-science/actions?query=workflow%3Adependencies) |
 | [**dev**](https://github.com/pmonks/for-science/tree/dev)  | [![Build](https://github.com/pmonks/for-science/workflows/build/badge.svg?branch=dev)](https://github.com/pmonks/for-science/actions?query=workflow%3Abuild) | [![Lint](https://github.com/pmonks/for-science/workflows/lint/badge.svg?branch=dev)](https://github.com/pmonks/for-science/actions?query=workflow%3Alint) | [![Dependencies](https://github.com/pmonks/for-science/workflows/dependencies/badge.svg?branch=dev)](https://github.com/pmonks/for-science/actions?query=workflow%3Adependencies) |
 
