@@ -21,6 +21,7 @@
             [clojure.tools.logging    :as log]
             [java-time                :as tm]
             [sci.core                 :as sci]
+            [discljord.formatting     :as df]
             [for-science.util         :as u]
             [for-science.message-util :as mu]
             [for-science.config       :as cfg]))
@@ -57,6 +58,36 @@
                           channel-id
                           :embed (assoc (mu/embed-template)
                                         :description (str "```" result "```"))))))
+
+(defn move-command!
+  "Moves a conversation to the specified channel"
+  [args event-data]
+  (when (not (mu/direct-message? event-data))   ; Only respond if the message was sent to a real channel in a server (i.e. not in a DM)
+    (let [guild-id   (:guild-id event-data)
+          channel-id (:channel-id event-data)
+          message-id (:id event-data)]
+      (mu/delete-message! cfg/discord-message-channel channel-id message-id)
+      (if (not (s/blank? args))
+        (if-let [target-channel-id (second (re-find df/channel-mention args))]
+          (if (not= channel-id target-channel-id)
+            (let [target-message-id  (:id (mu/create-message! cfg/discord-message-channel
+                                                              target-channel-id
+                                                              :embed (assoc (mu/embed-template)
+                                                                            :description (str "Continuing the conversation from " (mu/channel-link channel-id) "..."))))
+                  target-message-url (mu/message-url guild-id target-channel-id target-message-id)
+                  source-message-id  (:id (mu/create-message! cfg/discord-message-channel
+                                                              channel-id
+                                                              :embed (assoc (mu/embed-template)
+                                                                            :description (str "Let's continue this conversation in " (mu/channel-link target-channel-id) " ([link](" target-message-url "))."))))
+                  source-message-url (mu/message-url guild-id channel-id source-message-id)]
+              (mu/edit-message! cfg/discord-message-channel
+                                target-channel-id
+                                target-message-id
+                                :embed (assoc (mu/embed-template)
+                                              :description (str "Continuing the conversation from " (mu/channel-link channel-id)  " ([link](" source-message-url "))..."))))
+            (log/info "Cannot move a conversation to the same channel."))
+          (log/warn "Could not find target channel in move command."))
+        (log/warn "move-command! arguments missing a target channel.")))))
 
 (defn privacy-command!
   "Provides a link to the for-science privacy policy"
@@ -129,7 +160,8 @@
 
 ; Table of "public" commands; those that can be used in any channel, group or DM
 (def public-command-dispatch-table
-  {"clj" #'clj-command!})
+  {"clj"  #'clj-command!
+   "move" #'move-command!})
 
 (declare help-command!)
 
