@@ -38,7 +38,7 @@
 
     ; clj -X:uberjar
     :uberjar
-      {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.245"}}
+      {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.253"}}
        :exec-fn      hf.depstar/uberjar
        :exec-args    {:jar        "./target/for-science-standalone.jar"
                       :jar-type   :uber
