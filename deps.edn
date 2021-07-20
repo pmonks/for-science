@@ -21,10 +21,10 @@
    {org.clojure/clojure                 {:mvn/version "1.10.3"}
     org.clojars.pmonks/clj-2253         {:mvn/version "0.1.0"}
     org.clojure/tools.logging           {:mvn/version "1.1.0"}
-    ch.qos.logback/logback-classic      {:mvn/version "1.2.3"}
-    org.slf4j/jcl-over-slf4j            {:mvn/version "1.7.31"}
-    org.slf4j/log4j-over-slf4j          {:mvn/version "1.7.31"}
-    org.slf4j/jul-to-slf4j              {:mvn/version "1.7.31"}
+    ch.qos.logback/logback-classic      {:mvn/version "1.2.4"}
+    org.slf4j/jcl-over-slf4j            {:mvn/version "1.7.32"}
+    org.slf4j/log4j-over-slf4j          {:mvn/version "1.7.32"}
+    org.slf4j/jul-to-slf4j              {:mvn/version "1.7.32"}
     clojure.java-time/clojure.java-time {:mvn/version "0.3.2"}
     org.clojure/tools.cli               {:mvn/version "1.0.206"}
     aero/aero                           {:mvn/version "1.1.6"}
@@ -59,7 +59,7 @@
 
     ; clj -M:eastwood
     :eastwood
-      {:extra-deps {jonase/eastwood {:mvn/version "0.9.2"}}
+      {:extra-deps {jonase/eastwood {:mvn/version "0.9.3"}}
        :main-opts  ["-m" "eastwood.lint" {:source-paths ["src" "resources"]}]}
 
     ; clj -M:outdated
