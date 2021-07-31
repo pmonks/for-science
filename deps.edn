@@ -38,7 +38,7 @@
 
     ; clj -X:uberjar
     :uberjar
-      {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.267"}}
+      {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.278"}}
        :exec-fn      hf.depstar/uberjar
        :exec-args    {:jar        "./target/for-science-standalone.jar"
                       :jar-type   :uber
@@ -54,7 +54,7 @@
 
     ; clj -M:kondo
     :kondo
-      {:extra-deps {clj-kondo/clj-kondo {:mvn/version "2021.06.18"}}
+      {:extra-deps {clj-kondo/clj-kondo {:mvn/version "2021.07.28"}}
        :main-opts  ["-m" "clj-kondo.main" "--lint" "src" "resources"]}
 
     ; clj -M:eastwood
@@ -64,5 +64,5 @@
 
     ; clj -M:outdated
     :outdated
-      {:extra-deps {com.github.liquidz/antq {:mvn/version "0.16.0"}}
+      {:extra-deps {com.github.liquidz/antq {:mvn/version "0.16.1"}}
        :main-opts  ["-m" "antq.core"]}}}
