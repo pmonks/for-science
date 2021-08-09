@@ -64,5 +64,5 @@
 
     ; clj -M:outdated
     :outdated
-      {:extra-deps {com.github.liquidz/antq {:mvn/version "0.16.1"}}
+      {:extra-deps {com.github.liquidz/antq {:mvn/version "0.16.2"}}
        :main-opts  ["-m" "antq.core"]}}}
