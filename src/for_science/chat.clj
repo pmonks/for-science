@@ -32,18 +32,31 @@
 
 (def clojure-code-fence-regex #"(?s)```(clojure)??\s+(.*?)```")
 
+(def code-prefix "(use 'clojure.repl)")  ; Prefix to all code evaluation
+(def sci-opts    {})                     ; sci options map
+
 (defn- eval-clj
-  "Evaluates the given Clojure code, with a timeout on execution"
+  "Evaluates the given Clojure code, with a timeout on execution. Result is a map which may contain these keys:
+
+  :stdout any "
   [code]
   (when code
     (log/debug "Evaluating Clojure forms:" code)
     (let [result (future (try
-                           (print-str (sci/eval-string code))
-                           (catch Exception e
-                             (str "⚠️ " e))))]
-      (deref result
-             (* 1000 timeout-in-sec)
-             (str "⚠️ Execution terminated after " timeout-in-sec "s.")))))
+                           (let [sw     (java.io.StringWriter.)
+                                 result (sci/binding [sci/out sw
+                                                      sci/err sw]
+                                          (print-str (sci/eval-string (str code-prefix "\n" code) sci-opts)))]    ; Make sure we stringify the result inside sci/binding, to force de-lazying of the result of evaluating code
+                             (merge {:result result}
+                                    (when-let [output (when-not (s/blank? (str sw)) (str sw))] {:output output})))
+                           (catch Throwable t
+                             {:error t})))]
+      (try
+        (deref result
+               (* 1000 timeout-in-sec)
+               {:error (str "Execution terminated after " timeout-in-sec "s.")})
+        (catch Throwable t
+          {:error t})))))
 
 (defn clj-command!
   "Evaluates the body of the message as Clojure code, or, if the message contains clojure or unqualified code fences, combines and evaluates them (ignoring everything outside the code fences, thereby enabling 'literate' style messages)"
@@ -53,11 +66,15 @@
           clojure-code-fences (re-seq clojure-code-fence-regex args)
           result              (if clojure-code-fences
                                 (eval-clj (s/join "\n" (map #(nth % 2) clojure-code-fences)))   ; 3rd group in the regex is the code
-                                (eval-clj args))]
+                                (eval-clj args))
+          _                   (log/debug (str "Evaluation result: " result))
+          message             (if (:error result)
+                                (str "```\n⚠️ " (:error result) "\n```")
+                                (str (when (:output result) (str "Output:\n```\n" (:output result) "\n```\n")) "Result:\n```clojure\n" (:result result) "\n```"))]
       (mu/create-message! cfg/discord-message-channel
                           channel-id
                           :embed (assoc (mu/embed-template)
-                                        :description (str "```" result "```"))))))
+                                        :description message)))))
 
 (defn move-command!
   "Moves a conversation to the specified channel"

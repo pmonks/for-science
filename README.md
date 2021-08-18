@@ -14,7 +14,7 @@ Please review the [privacy policy](https://github.com/pmonks/for-science/blob/ma
 
 ## Adding the Bot to Your Discord Server
 
-If you're an administrator of a server, [click here](https://discord.com/oauth2/authorize?client_id=854190844084355082&scope=bot&permissions=2148006976) and follow the instructions.
+If you're an administrator of a server, [click here](https://discord.com/oauth2/authorize?client_id=854190844084355082&scope=bot&permissions=2148006976) and follow the instructions.  You will also need to ensure that the bot has permissions to read, create and delete messages from other people in every channel you want to use it in.
 
 ## Running Your Own Copy of the Bot
 
