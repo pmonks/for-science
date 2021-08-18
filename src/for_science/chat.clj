@@ -18,7 +18,6 @@
 
 (ns for-science.chat
   (:require [clojure.string           :as s]
-            [clojure.repl             :as repl]
             [clojure.tools.logging    :as log]
             [java-time                :as tm]
             [sci.core                 :as sci]
