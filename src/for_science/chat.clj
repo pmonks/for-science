@@ -64,25 +64,6 @@
        (log/debug "Result:" result)
        result))))
 
-
-;     let [result (future (try
-;                                         (let [sw     (java.io.StringWriter.)
-;                                               result (sci/binding [sci/out sw
-;                                                                    sci/err sw]
-;                                                        (print-str (sci/eval-string (str code-prefix "\n" code) sci-opts)))]    ; Make sure we stringify the result inside sci/binding, to force de-lazying of the result of evaluating code
-;                                           (merge {:result result}
-;                                                  (when-let [output (when-not (s/blank? (str sw)) (str sw))] {:output output})))
-;                                         (catch Throwable t
-;                                           {:error t})))]
-;                     (try
-;                       (deref result
-;                              (* 1000 timeout-in-sec)
-;                              {:error (str "Execution terminated after " timeout-in-sec "s.")})
-;                       (catch Throwable t
-;                         {:error t})))]
-;       (log/debug "Result:" result)
-;       result))))
-
 (defn clj-command!
   "Evaluates the body of the message as Clojure code, or, if the message contains clojure or unqualified code fences, combines and evaluates them (ignoring everything outside the code fences, thereby enabling 'literate' style messages)"
   [args event-data]
