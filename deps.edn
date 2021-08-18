@@ -30,7 +30,9 @@
     aero/aero                           {:mvn/version "1.1.6"}
     mount/mount                         {:mvn/version "0.1.16"}
     org.suskalo/discljord               {:mvn/version "1.2.3"}
-    borkdude/sci                        {:mvn/version "0.2.6"}}
+;    borkdude/sci                        {:mvn/version "0.2.6"}}    ; Recommended by borkdude to track master directly, instead (see https://clojurians.slack.com/archives/C015LCR9MHD/p1629322130102700?thread_ts=1629318524.097100&cid=C015LCR9MHD)
+    borkdude/sci                        {:git/url "https://github.com/borkdude/sci.git"
+                                         :git/sha "a618eb8f5bf10b2c0fc7622cbece38abaeba3099"}}
  :aliases
    {; clj -M:run -c /path/to/config.edn
     :run
