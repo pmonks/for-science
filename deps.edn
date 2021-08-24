@@ -18,27 +18,16 @@
 
 {:paths ["src" "resources"]
  :deps
-   {org.clojure/clojure                 {:mvn/version "1.10.3"}
-    org.clojars.pmonks/clj-2253         {:mvn/version "0.1.0"}
-    org.clojure/tools.logging           {:mvn/version "1.1.0"}
-    ch.qos.logback/logback-classic      {:mvn/version "1.2.5"}
-    org.slf4j/jcl-over-slf4j            {:mvn/version "1.7.32"}
-    org.slf4j/log4j-over-slf4j          {:mvn/version "1.7.32"}
-    org.slf4j/jul-to-slf4j              {:mvn/version "1.7.32"}
-    clojure.java-time/clojure.java-time {:mvn/version "0.3.2"}
-    org.clojure/tools.cli               {:mvn/version "1.0.206"}
-    aero/aero                           {:mvn/version "1.1.6"}
-    mount/mount                         {:mvn/version "0.1.16"}
-    org.suskalo/discljord               {:mvn/version "1.2.3"}
-;    borkdude/sci                        {:mvn/version "0.2.6"}}    ; Recommended by borkdude to track master directly, instead (see https://clojurians.slack.com/archives/C015LCR9MHD/p1629322130102700?thread_ts=1629318524.097100&cid=C015LCR9MHD)
-    borkdude/sci                        {:git/url "https://github.com/borkdude/sci.git"
-                                         :git/sha "a618eb8f5bf10b2c0fc7622cbece38abaeba3099"}
-    pmonks/discljord-utils              {:git/url "https://github.com/pmonks/discljord-utils.git"
-                                         :git/sha "652b5b795c9a0f9780614228744bba0f99460f0f"}}
+   {org.clojure/clojure    {:mvn/version "1.10.3"}
+;    borkdude/sci           {:mvn/version "0.2.6"}}    ; Recommended by borkdude to track master directly, instead (see https://clojurians.slack.com/archives/C015LCR9MHD/p1629322130102700?thread_ts=1629318524.097100&cid=C015LCR9MHD)
+    borkdude/sci           {:git/url "https://github.com/borkdude/sci.git"
+                            :git/sha "1ae916d4ab972b0a38da3a18665c5fb176401ebc"}
+    pmonks/discljord-utils {:git/url "https://github.com/pmonks/discljord-utils.git"
+                            :git/sha "8fe7d0aec1c2fa90265df3ea76fca2ea85ee47d1"}}
  :aliases
    {; clj -M:run -c /path/to/config.edn
     :run
-      {:main-opts ["-m" "for-science.main"]}
+      {:main-opts ["-m" "bot.main"]}
 
     ; clj -X:uberjar
     :uberjar
@@ -46,7 +35,7 @@
        :exec-fn      hf.depstar/uberjar
        :exec-args    {:jar        "./target/for-science-standalone.jar"
                       :jar-type   :uber
-                      :main-class "for-science.main"
+                      :main-class "bot.main"
                       :aot        true}}
 
     ; clj -M:check
@@ -54,7 +43,6 @@
       {:extra-deps {athos/clj-check {:git/url "https://github.com/athos/clj-check.git"
                                      :sha     "518d5a1cbfcd7c952f548e6dbfcb9a4a5faf9062"}}
        :main-opts  ["-m" "clj-check.check"]}
-
 
     ; clj -M:kondo
     :kondo

@@ -47,15 +47,16 @@ git commit -m ":gem: Release v${NEW_VERSION}" pom.xml ||:    # Ignore status cod
 echo "ℹ️ Tagging release..."
 git tag -f -a "v${NEW_VERSION}" -m "Release v${NEW_VERSION}"
 
-echo "ℹ️ Updating deploy info..."
-cat > resources/deploy-info.edn <<EOF
+echo "ℹ️ Updating build info..."
+cat > resources/build-info.edn <<EOF
 {
-  :hash "$(git show-ref -s --tags v${NEW_VERSION})"
-  :tag "v${NEW_VERSION}"
+  :repo "$(git config --get remote.origin.url)"
+  :sha  "$(git show-ref -s --tags v${NEW_VERSION})"
+  :tag  "v${NEW_VERSION}"
   :date #inst "$(date -u +%FT%TZ)"
 }
 EOF
-git commit -m ":gem: Release v${NEW_VERSION}" resources/deploy-info.edn
+git commit -m ":gem: Update build info for v${NEW_VERSION}" resources/build-info.edn
 
 echo "ℹ️ Pushing changes..."
 git push
