@@ -23,7 +23,7 @@
     borkdude/sci           {:git/url "https://github.com/borkdude/sci.git"
                             :git/sha "1ae916d4ab972b0a38da3a18665c5fb176401ebc"}
     pmonks/discljord-utils {:git/url "https://github.com/pmonks/discljord-utils.git"
-                            :git/sha "8fe7d0aec1c2fa90265df3ea76fca2ea85ee47d1"}}
+                            :git/sha "92e48d38f74f77b0e55c6d15bba42615a9fe707b"}}
  :aliases
    {; clj -M:run -c /path/to/config.edn
     :run
