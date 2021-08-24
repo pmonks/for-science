@@ -26,7 +26,7 @@
             [mount.core            :as mnt]
             [java-time             :as tm]
             [discljord.events      :as de]
-            [for-science.util      :as u]
+            [discljord-utils.util  :as u]
             [for-science.chat      :as chat])
   (:gen-class))
 

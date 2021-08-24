@@ -32,7 +32,9 @@
     org.suskalo/discljord               {:mvn/version "1.2.3"}
 ;    borkdude/sci                        {:mvn/version "0.2.6"}}    ; Recommended by borkdude to track master directly, instead (see https://clojurians.slack.com/archives/C015LCR9MHD/p1629322130102700?thread_ts=1629318524.097100&cid=C015LCR9MHD)
     borkdude/sci                        {:git/url "https://github.com/borkdude/sci.git"
-                                         :git/sha "a618eb8f5bf10b2c0fc7622cbece38abaeba3099"}}
+                                         :git/sha "a618eb8f5bf10b2c0fc7622cbece38abaeba3099"}
+    pmonks/discljord-utils              {:git/url "https://github.com/pmonks/discljord-utils.git"
+                                         :git/sha "652b5b795c9a0f9780614228744bba0f99460f0f"}}
  :aliases
    {; clj -M:run -c /path/to/config.edn
     :run

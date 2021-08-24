@@ -17,16 +17,27 @@
 ;
 
 (ns for-science.chat
-  (:require [clojure.string           :as s]
-            [clojure.tools.logging    :as log]
-            [java-time                :as tm]
-            [sci.core                 :as sci]
-            [discljord.formatting     :as df]
-            [for-science.util         :as u]
-            [for-science.message-util :as mu]
-            [for-science.config       :as cfg]))
+  (:require [clojure.string               :as s]
+            [clojure.tools.logging        :as log]
+            [java-time                    :as tm]
+            [sci.core                     :as sci]
+            [discljord.formatting         :as df]
+            [discljord-utils.util         :as u]
+            [discljord-utils.message-util :as mu]
+            [for-science.config           :as cfg]))
 
 (def prefix "!")
+
+(def embed-template-colour   9215480)
+(def embed-template-logo-url "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Clojure_logo.svg/240px-Clojure_logo.svg.png")
+
+(defn- embed-template
+  "Generates a default template for embeds."
+ []
+ {:color     embed-template-colour
+  :footer    {:text "for-science"
+              :icon_url embed-template-logo-url}
+  :timestamp (str (tm/instant))})
 
 (def default-timeout-in-sec 2)
 
@@ -51,7 +62,7 @@
                                           (let [sw     (java.io.StringWriter.)
                                                 result (sci/binding [sci/out sw
                                                                      sci/err sw]
-                                                         (print-str (sci/eval-string (str code-prefix "\n" code) sci-opts)))]    ; Make sure we stringify the result inside sci/binding, to force de-lazying of the result of evaluating code
+                                                         (pr-str (sci/eval-string (str code-prefix "\n" code) sci-opts)))]    ; Make sure we stringify the result inside sci/binding, to force de-lazying of the result of evaluating code
                                             (merge {:result result}
                                                    (when-let [output (when-not (s/blank? (str sw)) (str sw))] {:output output})))
                                           (catch Throwable t
@@ -75,10 +86,11 @@
                                 (eval-clj args))
           message             (if (:error result)
                                 (str "```\n⚠️ " (:error result) "\n```")
-                                (str (when (:output result) (str "Output:\n```\n" (:output result) "\n```\n")) "Result:\n```clojure\n" (:result result) "\n```"))]
+                                (str (when (:output result) (str "Output:\n```\n" (:output result) "\n```\n"))
+                                     "Result:\n```clojure\n" (:result result) "\n```"))]
       (mu/create-message! cfg/discord-message-channel
                           channel-id
-                          :embed (assoc (mu/embed-template)
+                          :embed (assoc (embed-template)
                                         :description message)))))
 
 (defn move-command!
@@ -94,18 +106,18 @@
           (if (not= channel-id target-channel-id)
             (let [target-message-id  (:id (mu/create-message! cfg/discord-message-channel
                                                               target-channel-id
-                                                              :embed (assoc (mu/embed-template)
+                                                              :embed (assoc (embed-template)
                                                                             :description (str "Continuing the conversation from " (mu/channel-link channel-id) "..."))))
                   target-message-url (mu/message-url guild-id target-channel-id target-message-id)
                   source-message-id  (:id (mu/create-message! cfg/discord-message-channel
                                                               channel-id
-                                                              :embed (assoc (mu/embed-template)
+                                                              :embed (assoc (embed-template)
                                                                             :description (str "Let's continue this conversation in " (mu/channel-link target-channel-id) " ([link](" target-message-url "))."))))
                   source-message-url (mu/message-url guild-id channel-id source-message-id)]
               (mu/edit-message! cfg/discord-message-channel
                                 target-channel-id
                                 target-message-id
-                                :embed (assoc (mu/embed-template)
+                                :embed (assoc (embed-template)
                                               :description (str "Continuing the conversation from " (mu/channel-link channel-id)  " ([link](" source-message-url "))..."))))
             (log/info "Cannot move a conversation to the same channel."))
           (log/warn "Could not find target channel in move command."))
@@ -116,7 +128,7 @@
   [_ event-data]
   (mu/create-message! cfg/discord-message-channel
                       (:channel-id event-data)
-                      :embed (assoc (mu/embed-template)
+                      :embed (assoc (embed-template)
                                     :description "[for-science's privacy policy is available here](https://github.com/pmonks/for-science/blob/main/PRIVACY.md).")))
 
 (defn status-command!
@@ -125,7 +137,7 @@
   (let [now (tm/instant)]
     (mu/create-message! cfg/discord-message-channel
                         (:channel-id event-data)
-                        :embed (assoc (mu/embed-template)
+                        :embed (assoc (embed-template)
                                       :title "for-science Status"
                                       :fields [
                                         {:name "Running for"            :value (str (u/human-readable-date-diff cfg/boot-time now))}
@@ -204,7 +216,7 @@
   [_ event-data]
   (mu/create-message! cfg/discord-message-channel
                       (:channel-id event-data)
-                      :embed (assoc (mu/embed-template)
+                      :embed (assoc (embed-template)
                                     :description (str "I understand the following commands in any channel or DM:\n"
                                                       (s/join "\n" (map #(str " • **`" prefix (key %) "`** - " (:doc (meta (val %))))
                                                                         (sort-by key public-command-dispatch-table)))
