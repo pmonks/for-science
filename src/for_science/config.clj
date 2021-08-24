@@ -26,7 +26,7 @@
             [mount.core             :as mnt :refer [defstate]]
             [discljord.connections  :as dc]
             [discljord.messaging    :as dm]
-            [for-science.util       :as u]))
+            [discljord-utils.util   :as u]))
 
 ; Because java.util.logging is a hot mess
 (org.slf4j.bridge.SLF4JBridgeHandler/removeHandlersForRootLogger)
