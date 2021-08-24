@@ -1,5 +1,10 @@
 ; Default configuration file - can be overridden via -c command line option
 {
+  :bot {
+    :ns   "for-science.commands"
+    :logo "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Clojure_logo.svg/240px-Clojure_logo.svg.png"
+  }
+
   :discord-api-token          #env DISCORD_API_TOKEN
   :discord-event-channel-size #or [#env DISCORD_EVENT_CHANNEL_SIZE 100]   ; Default = 100 queue slots
 }

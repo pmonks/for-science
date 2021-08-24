@@ -1,4 +1,9 @@
 {
+  :bot {
+    :ns   "for-science.commands"
+    :logo "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Clojure_logo.svg/240px-Clojure_logo.svg.png"
+  }
+
   :discord-api-token          #env DISCORD_API_TOKEN
   :discord-event-channel-size 100
 }
