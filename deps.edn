@@ -46,7 +46,7 @@
 
     ; clj -M:kondo
     :kondo
-      {:extra-deps {clj-kondo/clj-kondo {:mvn/version "2021.09.14"}}
+      {:extra-deps {clj-kondo/clj-kondo {:mvn/version "2021.09.15"}}
        :main-opts  ["-m" "clj-kondo.main" "--lint" "src" "resources"]}
 
     ; clj -M:eastwood
