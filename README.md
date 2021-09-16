@@ -14,7 +14,17 @@ Please review the [privacy policy](https://github.com/pmonks/for-science/blob/ma
 
 ## Adding the Bot to Your Discord Server
 
-If you're an administrator of a server, [click here](https://discord.com/oauth2/authorize?client_id=854190844084355082&scope=bot&permissions=2148006976) and follow the instructions.  You will also need to ensure that the bot has permissions to read, create and delete messages from other people in every channel you want to use it in.
+If you're an administrator of a server, [click here](https://discord.com/oauth2/authorize?client_id=854190844084355082&scope=bot&permissions=2148006976) and follow the instructions.  You will also need to ensure that the bot has permissions to read messages from other people, and create messages in every channel you want to use it in.  The `!move` command also requires permission to delete other people's messages.
+
+## Using the Bot
+
+The bot provides these commands in any channel or a DM:
+* `!clj ...forms...` - evaluate the following text as Clojure forms. If code fences are used, will only evaluate text within those code fences (thereby allowing for a "literate" style of message).  Note that each use of this command is run in a "fresh" instance of the interpreter - no state is maintained between invocations (to help avoid memory leaks).  If this is limiting for your use case, please [chime in here](https://github.com/pmonks/for-science/issues/7).
+* `!move #channel` - logically moves the current conversation to #channel. This is done by posting cross-linked messages in both this channel and the other channel, and asking users to continue in the other channel. Note: it doesn't actually move any messages in a technical sense - it's more about logically moving a conversation from that point forward.
+
+It also provides these commands in a DM only:
+* `!help` - provides brief help.
+* `!privacy` - provides a link to the bot's privacy policy.
 
 ## Running Your Own Copy of the Bot
 

@@ -21,9 +21,9 @@
    {org.clojure/clojure    {:mvn/version "1.10.3"}
 ;    borkdude/sci           {:mvn/version "0.2.6"}}    ; Recommended by borkdude to track master directly, instead (see https://clojurians.slack.com/archives/C015LCR9MHD/p1629322130102700?thread_ts=1629318524.097100&cid=C015LCR9MHD)
     borkdude/sci           {:git/url "https://github.com/borkdude/sci.git"
-                            :git/sha "1ae916d4ab972b0a38da3a18665c5fb176401ebc"}
+                            :git/sha "8e2a4ce459bddede8b90a7ab04feb2de64f6fa8b"}
     pmonks/discljord-utils {:git/url "https://github.com/pmonks/discljord-utils.git"
-                            :git/sha "92e48d38f74f77b0e55c6d15bba42615a9fe707b"}}
+                            :git/sha "0f62f84b66285b244669ecdc1029ef9212ae3239"}}
  :aliases
    {; clj -M:run -c /path/to/config.edn
     :run
@@ -31,7 +31,7 @@
 
     ; clj -X:uberjar
     :uberjar
-      {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.278"}}
+      {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.303"}}
        :exec-fn      hf.depstar/uberjar
        :exec-args    {:jar        "./target/for-science-standalone.jar"
                       :jar-type   :uber
@@ -46,15 +46,15 @@
 
     ; clj -M:kondo
     :kondo
-      {:extra-deps {clj-kondo/clj-kondo {:mvn/version "2021.08.06"}}
+      {:extra-deps {clj-kondo/clj-kondo {:mvn/version "2021.09.15"}}
        :main-opts  ["-m" "clj-kondo.main" "--lint" "src" "resources"]}
 
     ; clj -M:eastwood
     :eastwood
-      {:extra-deps {jonase/eastwood {:mvn/version "0.9.7"}}
+      {:extra-deps {jonase/eastwood {:mvn/version "0.9.9"}}
        :main-opts  ["-m" "eastwood.lint" {:source-paths ["src" "resources"]}]}
 
     ; clj -M:outdated
     :outdated
-      {:extra-deps {com.github.liquidz/antq {:mvn/version "0.16.3"}}
+      {:extra-deps {com.github.liquidz/antq {:mvn/version "1.0.1"}}
        :main-opts  ["-m" "antq.core"]}}}
