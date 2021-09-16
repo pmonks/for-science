@@ -21,7 +21,7 @@
    {org.clojure/clojure    {:mvn/version "1.10.3"}
 ;    borkdude/sci           {:mvn/version "0.2.6"}}    ; Recommended by borkdude to track master directly, instead (see https://clojurians.slack.com/archives/C015LCR9MHD/p1629322130102700?thread_ts=1629318524.097100&cid=C015LCR9MHD)
     borkdude/sci           {:git/url "https://github.com/borkdude/sci.git"
-                            :git/sha "422bce7925b77cb4175e940d0d1d0f9439b46ad6"}
+                            :git/sha "8e2a4ce459bddede8b90a7ab04feb2de64f6fa8b"}
     pmonks/discljord-utils {:git/url "https://github.com/pmonks/discljord-utils.git"
                             :git/sha "0f62f84b66285b244669ecdc1029ef9212ae3239"}}
  :aliases
@@ -31,7 +31,7 @@
 
     ; clj -X:uberjar
     :uberjar
-      {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.297"}}
+      {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.303"}}
        :exec-fn      hf.depstar/uberjar
        :exec-args    {:jar        "./target/for-science-standalone.jar"
                       :jar-type   :uber
@@ -56,5 +56,5 @@
 
     ; clj -M:outdated
     :outdated
-      {:extra-deps {com.github.liquidz/antq {:mvn/version "1.0.0"}}
+      {:extra-deps {com.github.liquidz/antq {:mvn/version "1.0.1"}}
        :main-opts  ["-m" "antq.core"]}}}
