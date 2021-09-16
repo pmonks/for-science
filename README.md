@@ -19,7 +19,7 @@ If you're an administrator of a server, [click here](https://discord.com/oauth2/
 ## Using the Bot
 
 The bot provides these commands in any channel or a DM:
-* `!clj ...forms...` - evaluate the following text as Clojure forms. If code fences are used, will only evaluate text within those code fences (thereby allowing for a "literate" style of message).
+* `!clj ...forms...` - evaluate the following text as Clojure forms. If code fences are used, will only evaluate text within those code fences (thereby allowing for a "literate" style of message).  Note that each use of this command is run in a "fresh" instance of the interpreter - no state is maintained between invocations (to help avoid memory leaks).  If this is limiting for your use case, please [chime in here](https://github.com/pmonks/for-science/issues/7).
 * `!move #channel` - logically moves the current conversation to #channel. This is done by posting cross-linked messages in both this channel and the other channel, and asking users to continue in the other channel. Note: it doesn't actually move any messages in a technical sense - it's more about logically moving a conversation from that point forward.
 
 It also provides these commands in a DM only:
