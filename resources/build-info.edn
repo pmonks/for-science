@@ -1,6 +1,6 @@
 {
   :repo "https://github.com/pmonks/for-science.git"
-  :sha  "41548526228fecf9ea47473ee334522b9fbf966f"
-  :tag  "v0.1.20210824"
-  :date #inst "2021-08-24T07:26:45Z"
+  :sha  "29011302b3fe267861eefdc6917a4639eab55b5f"
+  :tag  "v0.1.20210916"
+  :date #inst "2021-09-16T16:38:17Z"
 }
