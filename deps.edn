@@ -23,7 +23,7 @@
     borkdude/sci           {:git/url "https://github.com/borkdude/sci.git"
                             :git/sha "8e2a4ce459bddede8b90a7ab04feb2de64f6fa8b"}
     pmonks/discljord-utils {:git/url "https://github.com/pmonks/discljord-utils.git"
-                            :git/sha "ba4faa9a9f164eff6bd18ebf7893c7b260d3ba56"}}
+                            :git/sha "d71076a6109c57f78737fffd8465a6c5b508b129"}}
  :aliases
    {; clj -M:run -c /path/to/config.edn
     :run
@@ -56,5 +56,5 @@
 
     ; clj -M:outdated
     :outdated
-      {:extra-deps {com.github.liquidz/antq {:mvn/version "1.0.1"}}
+      {:extra-deps {com.github.liquidz/antq {:mvn/version "1.1.0"}}
        :main-opts  ["-m" "antq.core"]}}}
