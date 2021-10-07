@@ -21,9 +21,9 @@
    {org.clojure/clojure    {:mvn/version "1.10.3"}
 ;    borkdude/sci           {:mvn/version "0.2.6"}}    ; Recommended by borkdude to track master directly, instead (see https://clojurians.slack.com/archives/C015LCR9MHD/p1629322130102700?thread_ts=1629318524.097100&cid=C015LCR9MHD)
     borkdude/sci           {:git/url "https://github.com/borkdude/sci.git"
-                            :git/sha "8e2a4ce459bddede8b90a7ab04feb2de64f6fa8b"}
+                            :git/sha "9cd4b8b2eb9db2c1e9000813c58672e08b3957d9"}
     pmonks/discljord-utils {:git/url "https://github.com/pmonks/discljord-utils.git"
-                            :git/sha "d71076a6109c57f78737fffd8465a6c5b508b129"}}
+                            :git/sha "610bc6c5e4b2711f08321b0fe0c2256e441c2a3a"}}
  :aliases
    {; clj -M:run -c /path/to/config.edn
     :run
@@ -46,7 +46,7 @@
 
     ; clj -M:kondo
     :kondo
-      {:extra-deps {clj-kondo/clj-kondo {:mvn/version "2021.09.15"}}
+      {:extra-deps {clj-kondo/clj-kondo {:mvn/version "2021.09.25"}}
        :main-opts  ["-m" "clj-kondo.main" "--lint" "src" "resources"]}
 
     ; clj -M:eastwood
