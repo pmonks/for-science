@@ -21,27 +21,37 @@
    {org.clojure/clojure    {:mvn/version "1.10.3"}
 ;    borkdude/sci           {:mvn/version "0.2.6"}}    ; Recommended by borkdude to track master directly, instead (see https://clojurians.slack.com/archives/C015LCR9MHD/p1629322130102700?thread_ts=1629318524.097100&cid=C015LCR9MHD)
     borkdude/sci           {:git/url "https://github.com/borkdude/sci.git"
-                            :git/sha "9cd4b8b2eb9db2c1e9000813c58672e08b3957d9"}
+                            :git/sha "20616983a8be69f2c28c4ef453e7a4eb644a12ee"}
     pmonks/discljord-utils {:git/url "https://github.com/pmonks/discljord-utils.git"
                             :git/sha "610bc6c5e4b2711f08321b0fe0c2256e441c2a3a"}}
  :aliases
-   {; clj -M:run -c /path/to/config.edn
-    :run
-      {:main-opts ["-m" "bot.main"]}
+   {; ---- TOOL ALIASES ----
 
-    ; clj -X:uberjar
-    :uberjar
-      {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.303"}}
-       :exec-fn      hf.depstar/uberjar
-       :exec-args    {:jar        "./target/for-science-standalone.jar"
-                      :jar-type   :uber
-                      :main-class "bot.main"
-                      :aot        true}}
+    ; clj -T:build <taskname>
+    :build
+      {:deps       {org.github.pmonks/pbr {:git/url "https://github.com/pmonks/pbr.git"
+                                           :git/sha "2e80ec13fb89844ed8d991911a2120e7ac38fe5b"}}
+       :ns-default build}
+
+    ; clj -T:run <taskname> :config-file "<PATH_TO_CONFIG_FILE>"
+    :run
+      {:deps       {org.github.pmonks/pbr {:git/url "https://github.com/pmonks/pbr.git"
+                                           :git/sha "2e80ec13fb89844ed8d991911a2120e7ac38fe5b"}}
+       :ns-default run}
+
+    ; clj -T:release <taskname>
+    :release
+      {:deps       {org.github.pmonks/pbr {:git/url "https://github.com/pmonks/pbr.git"
+                                           :git/sha "2e80ec13fb89844ed8d991911a2120e7ac38fe5b"}}
+       :ns-default release}
+
+
+    ; ---- MAIN FUNCTION ALIASES ----
 
     ; clj -M:check
     :check
       {:extra-deps {athos/clj-check {:git/url "https://github.com/athos/clj-check.git"
-                                     :sha     "518d5a1cbfcd7c952f548e6dbfcb9a4a5faf9062"}}
+                                     :git/sha "518d5a1cbfcd7c952f548e6dbfcb9a4a5faf9062"}}
        :main-opts  ["-m" "clj-check.check"]}
 
     ; clj -M:kondo
@@ -52,9 +62,14 @@
     ; clj -M:eastwood
     :eastwood
       {:extra-deps {jonase/eastwood {:mvn/version "0.9.9"}}
-       :main-opts  ["-m" "eastwood.lint" {:source-paths ["src" "resources"]}]}
+       :main-opts  ["-m" "eastwood.lint" "{:source-paths,[\"src\",\"resources\"]}"]}
 
     ; clj -M:outdated
     :outdated
       {:extra-deps {com.github.liquidz/antq {:mvn/version "1.1.0"}}
-       :main-opts  ["-m" "antq.core"]}}}
+       :main-opts  ["-m" "antq.core"]}
+
+    ; clj -M:main -c /path/to/config.edn
+    :main
+      {:main-opts ["-m" "bot.main"]}
+   }}

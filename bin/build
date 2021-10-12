@@ -1,13 +1,2 @@
 #!/usr/bin/env bash
-
-set -e
-set -o pipefail
-
-echo "ℹ️ Downloading dependencies..."
-clojure -Srepro -P --report stderr
-
-echo "ℹ️ Updating pom.xml..."
-clojure -Srepro -Spom --report stderr
-
-echo "ℹ️ Building uberjar..."
-clojure -Srepro -X:uberjar    # Note: Clojure CLI doesn't support --report with -X 🙄; see https://ask.clojure.org/index.php/10692/clojure-cli-report-incompatible-with-x for details
+clojure -Srepro -J-Dclojure.main.report=stderr -T:build uber

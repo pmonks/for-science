@@ -20,5 +20,5 @@ jobs:
         with:
           tools-deps: latest
 
-      - name: Compile and lint code
-        run: bin/check.sh
+      - name: Run linters
+        run: clojure -Srepro -J-Dclojure.main.report=stderr -T:build lint
