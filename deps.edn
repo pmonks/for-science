@@ -30,19 +30,19 @@
     ; clj -T:build <taskname>
     :build
       {:deps       {org.github.pmonks/pbr {:git/url "https://github.com/pmonks/pbr.git"
-                                           :git/sha "2e80ec13fb89844ed8d991911a2120e7ac38fe5b"}}
+                                           :git/sha "9aa34d8e5c309053d709625da4a87b318886cc51"}}
        :ns-default build}
 
     ; clj -T:run <taskname> :config-file "<PATH_TO_CONFIG_FILE>"
     :run
       {:deps       {org.github.pmonks/pbr {:git/url "https://github.com/pmonks/pbr.git"
-                                           :git/sha "2e80ec13fb89844ed8d991911a2120e7ac38fe5b"}}
+                                           :git/sha "9aa34d8e5c309053d709625da4a87b318886cc51"}}
        :ns-default run}
 
     ; clj -T:release <taskname>
     :release
       {:deps       {org.github.pmonks/pbr {:git/url "https://github.com/pmonks/pbr.git"
-                                           :git/sha "2e80ec13fb89844ed8d991911a2120e7ac38fe5b"}}
+                                           :git/sha "9aa34d8e5c309053d709625da4a87b318886cc51"}}
        :ns-default release}
 
 
