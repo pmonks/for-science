@@ -34,11 +34,12 @@ clojure -A:deps -T:build help/doc"
 (defn set-opts
   [opts]
   (assoc opts
-         :lib       lib
-         :version   version
-         :uber-file uber-file
-         :main      main
-         :write-pom true
+         :lib              lib
+         :version          version
+         :uber-file        uber-file
+         :main             main
+         :deploy-info-file "./resources/build-info.edn"
+         :write-pom        true
          :pom {:description      "A small Discord bot that you can send Clojure code to, to experiment with the language, demonstrate core language principles, or just mess about."
                :url              "https://github.com/pmonks/for-science"
                :licenses         [:license   {:name "Apache License 2.0" :url "http://www.apache.org/licenses/LICENSE-2.0.html"}]
