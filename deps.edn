@@ -29,34 +29,25 @@
 
     ; clj -T:build <taskname>
     :build
-      {:deps       {org.github.pmonks/pbr {:git/url "https://github.com/pmonks/pbr.git"
-                                           :git/sha "9aa34d8e5c309053d709625da4a87b318886cc51"}}
+      {:deps       {com.github.pmonks/pbr {:git/tag "v1.0.36" :git/sha "535c28df659deda7a483fb5e68692023988fcb82"}}
        :ns-default build}
 
     ; clj -T:run <taskname> :config-file "<PATH_TO_CONFIG_FILE>"
     :run
-      {:deps       {org.github.pmonks/pbr {:git/url "https://github.com/pmonks/pbr.git"
-                                           :git/sha "9aa34d8e5c309053d709625da4a87b318886cc51"}}
+      {:deps       {com.github.pmonks/pbr {:git/tag "v1.0.36" :git/sha "535c28df659deda7a483fb5e68692023988fcb82"}}
        :ns-default run}
-
-    ; clj -T:release <taskname>
-    :release
-      {:deps       {org.github.pmonks/pbr {:git/url "https://github.com/pmonks/pbr.git"
-                                           :git/sha "9aa34d8e5c309053d709625da4a87b318886cc51"}}
-       :ns-default release}
 
 
     ; ---- MAIN FUNCTION ALIASES ----
 
     ; clj -M:check
     :check
-      {:extra-deps {athos/clj-check {:git/url "https://github.com/athos/clj-check.git"
-                                     :git/sha "518d5a1cbfcd7c952f548e6dbfcb9a4a5faf9062"}}
+      {:extra-deps {com.github.athos/clj-check {:git/sha "518d5a1cbfcd7c952f548e6dbfcb9a4a5faf9062"}}
        :main-opts  ["-m" "clj-check.check"]}
 
     ; clj -M:kondo
     :kondo
-      {:extra-deps {clj-kondo/clj-kondo {:mvn/version "2021.09.25"}}
+      {:extra-deps {clj-kondo/clj-kondo {:mvn/version "2021.10.19"}}
        :main-opts  ["-m" "clj-kondo.main" "--lint" "src" "resources"]}
 
     ; clj -M:eastwood

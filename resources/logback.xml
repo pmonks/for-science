@@ -28,6 +28,7 @@
 
   <logger name="org.apache"  level="ERROR" />
   <logger name="org.eclipse" level="ERROR" />
+  <logger name="ch.qos"      level="ERROR" />
   <logger name="discljord"   level="ERROR" />
   <logger name="bot"         level="INFO" />
   <logger name="for-science" level="INFO" />
