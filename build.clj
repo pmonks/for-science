@@ -74,7 +74,9 @@ clojure -A:deps -T:build help/doc"
 (defn licenses
   "Display all dependencies' licenses."
   [opts]
-  (pbr/licenses opts))
+  (-> opts
+      (set-opts)
+      (pbr/licenses)))
 
 (defn kondo
   "Run the clj-kondo linter."
