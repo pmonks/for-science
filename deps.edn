@@ -18,12 +18,9 @@
 
 {:paths ["src" "resources"]
  :deps
-   {org.clojure/clojure    {:mvn/version "1.10.3"}
-;    borkdude/sci           {:mvn/version "0.2.6"}}    ; Recommended by borkdude to track master directly, instead (see https://clojurians.slack.com/archives/C015LCR9MHD/p1629322130102700?thread_ts=1629318524.097100&cid=C015LCR9MHD)
-    borkdude/sci           {:git/url "https://github.com/borkdude/sci.git"
-                            :git/sha "20616983a8be69f2c28c4ef453e7a4eb644a12ee"}
-    pmonks/discljord-utils {:git/url "https://github.com/pmonks/discljord-utils.git"
-                            :git/sha "610bc6c5e4b2711f08321b0fe0c2256e441c2a3a"}}
+   {org.clojure/clojure               {:mvn/version "1.10.3"}
+    org.babashka/sci                  {:mvn/version "0.2.7"}
+    com.github.pmonks/discljord-utils {:git/sha "610bc6c5e4b2711f08321b0fe0c2256e441c2a3a"}}
  :aliases
    {; ---- TOOL ALIASES ----
 
