@@ -23,7 +23,7 @@ For more information, run:
 
 clojure -A:deps -T:build help/doc"
   (:require [org.corfield.build :as bb]
-            [org.pmonks.pbr     :as pbr]))
+            [pbr.tasks          :as pbr]))
 
 (def lib       'org.github.pmonks/for-science)
 (def version   (format "1.0.%s" (.format (java.text.SimpleDateFormat. "yyyyMMdd") (java.util.Date.))))
@@ -71,6 +71,11 @@ clojure -A:deps -T:build help/doc"
   [opts]
   (bb/run-task (set-opts opts) [:outdated]))
 
+(defn licenses
+  "Display all dependencies' licenses."
+  [opts]
+  (pbr/licenses opts))
+
 (defn kondo
   "Run the clj-kondo linter."
   [opts]
@@ -95,3 +100,18 @@ clojure -A:deps -T:build help/doc"
     (outdated)
     (check)
     (lint)))
+
+(defn check-release
+  "Check that a release can be done from the current directory."
+  [opts]
+  (-> opts
+      (set-opts)
+      (ci)
+      (pbr/check-release)))
+
+(defn release
+  "Release a new version of the bot."
+  [opts]
+  (-> opts
+      (set-opts)
+      (pbr/release)))

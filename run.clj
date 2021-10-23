@@ -23,7 +23,7 @@ For more information, run:
 
 clojure -A:deps -T:run help/doc"
   (:require [org.corfield.build :as bb]
-            [org.pmonks.pbr     :as pbr]
+            [pbr.convenience    :as pbrc]
             [build              :as b]))
 
 (defn source
@@ -42,7 +42,7 @@ clojure -A:deps -T:run help/doc"
   (if-let [config-file (:config-file opts)]
     (do
       (b/uber opts)
-      (pbr/exec ["java" "-jar" b/uber-file "-c" (str config-file)]))
+      (pbrc/exec ["java" "-jar" b/uber-file "-c" (str config-file)]))
     (throw (ex-info ":config-file missing from tool invocation" (into {} opts)))))
 
 (defn heroku
@@ -51,5 +51,5 @@ clojure -A:deps -T:run help/doc"
   (if-let [config-file (:config-file opts)]
     (do
       (b/uber opts)
-      (pbr/exec ["java" "-XX:NativeMemoryTracking=summary" "-Xmx300m" "-Dclojure.server.repl={:port 5555 :accept clojure.core.server/repl}" "-jar" b/uber-file "-c" (str config-file)]))
+      (pbrc/exec ["java" "-XX:NativeMemoryTracking=summary" "-Xmx300m" "-Dclojure.server.repl={:port 5555 :accept clojure.core.server/repl}" "-jar" b/uber-file "-c" (str config-file)]))
     (throw (ex-info ":config-file missing from tool invocation" (into {} opts)))))
