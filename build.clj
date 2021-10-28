@@ -22,8 +22,10 @@
 For more information, run:
 
 clojure -A:deps -T:build help/doc"
-  (:require [org.corfield.build :as bb]
-            [pbr.tasks          :as pbr]))
+  (:require [org.corfield.build   :as bb]
+            [pbr.tasks            :as pbr]
+            [tools-pom.tasks      :as pom]
+            [tools-licenses.tasks :as lic]))
 
 (def lib       'org.github.pmonks/for-science)
 (def version   (format "1.0.%s" (.format (java.text.SimpleDateFormat. "yyyyMMdd") (java.util.Date.))))
@@ -58,7 +60,7 @@ clojure -A:deps -T:build help/doc"
   [opts]
   (-> opts
     (set-opts)
-    (pbr/pom)
+    (pom/pom)
     (bb/uber)))
 
 (defn check
@@ -72,11 +74,18 @@ clojure -A:deps -T:build help/doc"
   (bb/run-task (set-opts opts) [:outdated]))
 
 (defn licenses
-  "Display all dependencies' licenses."
+  "Attempts to list all licenses for the transitive set of dependencies of the project, using SPDX license expressions."
   [opts]
   (-> opts
       (set-opts)
-      (pbr/licenses)))
+      (lic/licenses)))
+
+(defn check-asf-policy
+  "Checks this project's dependencies' licenses against the ASF's 3rd party license policy (https://www.apache.org/legal/resolved.html)."
+  [opts]
+  (-> opts
+      (set-opts)
+      (lic/check-asf-policy)))
 
 (defn kondo
   "Run the clj-kondo linter."
