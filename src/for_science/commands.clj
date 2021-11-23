@@ -43,7 +43,7 @@
    (when code
      (log/debug "Evaluating Clojure forms:" code)
      (let [result (try
-                    (let [eval-result (future
+                    (let [f           (future
                                         (try
                                           (let [sw     (java.io.StringWriter.)
                                                 result (sci/binding [sci/out sw
@@ -52,10 +52,12 @@
                                             (merge {:result result}
                                                    (when-let [output (when-not (s/blank? (str sw)) (str sw))] {:output output})))
                                           (catch Throwable t
-                                            {:error t})))]
-                      (deref eval-result
-                             (* 1000 timeout-in-sec)
-                             {:error (str "Execution terminated after " timeout-in-sec "s.")}))
+                                            {:error t})))
+                          eval-result (deref f
+                                        (* 1000 timeout-in-sec)
+                                        {:error (str "Execution terminated after " timeout-in-sec "s.")})]
+                      (when-not (future-done? f) (future-cancel f))
+                      eval-result)
                     (catch Throwable t
                       {:error t}))]
        (log/debug "Result:" result)
