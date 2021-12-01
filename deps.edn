@@ -20,7 +20,7 @@
  :deps
    {org.clojure/clojure               {:mvn/version "1.10.3"}
     org.babashka/sci                  {:mvn/version "0.2.7"}
-    com.github.pmonks/discljord-utils {:git/sha "49f68bc167d9f9e824ab4b8057785938b790f892"}}
+    com.github.pmonks/discljord-utils {:git/sha "9ace640166d20f37c1cacaa88f53e6d99e6c28d1"}}
  :aliases
    {; ---- TOOL ALIASES ----
 
