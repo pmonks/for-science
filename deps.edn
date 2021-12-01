@@ -20,19 +20,19 @@
  :deps
    {org.clojure/clojure               {:mvn/version "1.10.3"}
     org.babashka/sci                  {:mvn/version "0.2.7"}
-    com.github.pmonks/discljord-utils {:git/sha "9ace640166d20f37c1cacaa88f53e6d99e6c28d1"}}
+    com.github.pmonks/discljord-utils {:git/sha "36788069987e23619ce0335cb71b2228bca2ae8a"}}
  :aliases
    {; ---- TOOL ALIASES ----
 
     ; clj -T:build <taskname>
     :build
-      {:deps       {io.github.seancorfield/build-clj {:git/tag "v0.5.5" :git/sha "0527130"}
+      {:deps       {io.github.seancorfield/build-clj {:git/tag "v0.6.0" :git/sha "2451bea"}
                     com.github.pmonks/pbr            {:mvn/version "2.0.115"}}
        :ns-default build}
 
     ; clj -T:run <taskname> :config-file "<PATH_TO_CONFIG_FILE>"
     :run
-      {:deps       {io.github.seancorfield/build-clj {:git/tag "v0.5.5" :git/sha "0527130"}
+      {:deps       {io.github.seancorfield/build-clj {:git/tag "v0.6.0" :git/sha "2451bea"}
                     com.github.pmonks/pbr            {:mvn/version "2.0.115"}}
        :ns-default run}
 
@@ -46,7 +46,7 @@
 
     ; clj -M:kondo
     :kondo
-      {:extra-deps {clj-kondo/clj-kondo {:mvn/version "2021.10.19"}}
+      {:extra-deps {clj-kondo/clj-kondo {:mvn/version "2021.12.01"}}
        :main-opts  ["-m" "clj-kondo.main" "--lint" "src" "resources"]}
 
     ; clj -M:eastwood
