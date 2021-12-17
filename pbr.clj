@@ -16,23 +16,11 @@
 ; SPDX-License-Identifier: Apache-2.0
 ;
 
-(ns build
-  "Build script for for-science.
-
-For more information, run:
-
-clojure -A:deps -T:build help/doc"
-  (:require [org.corfield.build   :as bb]
-            [pbr.tasks            :as pbr]
-            [tools-pom.tasks      :as pom]
-            [tools-licenses.tasks :as lic]))
-
 (def lib       'org.github.pmonks/for-science)
 (def version   (format "1.0.%s" (.format (java.text.SimpleDateFormat. "yyyyMMdd") (java.util.Date.))))
 (def uber-file "./target/for-science-standalone.jar")
 (def main      'bot.main)
 
-; Utility fns
 (defn set-opts
   [opts]
   (assoc opts
@@ -48,81 +36,3 @@ clojure -A:deps -T:build help/doc"
                :developers       [:developer {:id "pmonks" :name "Peter Monks" :email "pmonks+forscience@gmail.com"}]
                :scm              {:url "https://github.com/pmonks/for-science" :connection "scm:git:git://github.com/pmonks/for-science.git" :developer-connection "scm:git:ssh://git@github.com/pmonks/for-science.git"}
                :issue-management {:system "github" :url "https://github.com/pmonks/for-science/issues"}}))
-
-; Development-time tasks
-(defn clean
-  "Clean up the project."
-  [opts]
-  (bb/clean (set-opts opts)))
-
-(defn uber
-  "Create an uber jar."
-  [opts]
-  (-> opts
-    (set-opts)
-    (pom/pom)
-    (bb/uber)))
-
-(defn check
-  "Check the code by compiling it."
-  [opts]
-  (bb/run-task (set-opts opts) [:check]))
-
-(defn outdated
-  "Check for outdated dependencies."
-  [opts]
-  (bb/run-task (set-opts opts) [:outdated]))
-
-(defn licenses
-  "Attempts to list all licenses for the transitive set of dependencies of the project, using SPDX license expressions."
-  [opts]
-  (-> opts
-      (set-opts)
-      (lic/licenses)))
-
-(defn check-asf-policy
-  "Checks this project's dependencies' licenses against the ASF's 3rd party license policy (https://www.apache.org/legal/resolved.html)."
-  [opts]
-  (-> opts
-      (set-opts)
-      (lic/check-asf-policy)))
-
-(defn kondo
-  "Run the clj-kondo linter."
-  [opts]
-  (bb/run-task (set-opts opts) [:kondo]))
-
-(defn eastwood
-  "Run the eastwood linter."
-  [opts]
-  (bb/run-task (set-opts opts) [:eastwood]))
-
-(defn lint
-  "Run all linters."
-  [opts]
-  (-> opts
-    (kondo)
-    (eastwood)))
-
-(defn ci
-  "Run the CI pipeline."
-  [opts]
-  (-> opts
-    (outdated)
-    (check)
-    (lint)))
-
-(defn check-release
-  "Check that a release can be done from the current directory."
-  [opts]
-  (-> opts
-      (set-opts)
-      (ci)
-      (pbr/check-release)))
-
-(defn release
-  "Release a new version of the bot."
-  [opts]
-  (-> opts
-      (set-opts)
-      (pbr/release)))
