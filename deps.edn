@@ -20,20 +20,20 @@
  :deps
    {org.clojure/clojure               {:mvn/version "1.10.3"}
     org.babashka/sci                  {:mvn/version "0.2.8"}
-    com.github.pmonks/discljord-utils {:git/sha "8742606238689fb893d327ca4565d1e6b8e7d29b"}}
+    com.github.pmonks/discljord-utils {:git/sha "62c5b68f31817b388df9b6c39463c267ea210bfb"}}
  :aliases
    {; ---- TOOL ALIASES ----
 
     ; clj -T:build <taskname>
     :build
-      {:deps       {io.github.seancorfield/build-clj {:git/tag "v0.6.3" :git/sha "9b8e09b"}
-                    com.github.pmonks/pbr            {:mvn/version "2.0.129"}}
+      {:deps       {io.github.seancorfield/build-clj {:git/tag "v0.6.5" :git/sha "972031a"}
+                    com.github.pmonks/pbr            {:mvn/version "2.0.133"}}
        :ns-default build}
 
     ; clj -T:run <taskname> :config-file "<PATH_TO_CONFIG_FILE>"
     :run
-      {:deps       {io.github.seancorfield/build-clj {:git/tag "v0.6.3" :git/sha "9b8e09b"}
-                    com.github.pmonks/pbr            {:mvn/version "2.0.129"}}
+      {:deps       {io.github.seancorfield/build-clj {:git/tag "v0.6.5" :git/sha "972031a"}
+                    com.github.pmonks/pbr            {:mvn/version "2.0.133"}}
        :ns-default run}
 
 
