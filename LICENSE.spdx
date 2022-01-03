@@ -1,7 +1,7 @@
 SPDXVersion: SPDX-2.1
 DataLicense: CC0-1.0
 Creator: Peter Monks
-PackageName: for-science
+PackageName: com.github.pmonks/for-science
 PackageOriginator: Peter Monks
 PackageHomePage: https://github.com/pmonks/for-science
 PackageLicenseDeclared: Apache-2.0
