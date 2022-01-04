@@ -1,7 +1,7 @@
-| | | | |
-|---:|:---:|:---:|:---:|
-| [**main**](https://github.com/pmonks/for-science/tree/main) | [![Build](https://github.com/pmonks/for-science/workflows/build/badge.svg?branch=main)](https://github.com/pmonks/for-science/actions?query=workflow%3Abuild) | [![Lint](https://github.com/pmonks/for-science/workflows/lint/badge.svg?branch=main)](https://github.com/pmonks/for-science/actions?query=workflow%3Alint) | [![Dependencies](https://github.com/pmonks/for-science/workflows/dependencies/badge.svg?branch=main)](https://github.com/pmonks/for-science/actions?query=workflow%3Adependencies) |
-| [**dev**](https://github.com/pmonks/for-science/tree/dev)  | [![Build](https://github.com/pmonks/for-science/workflows/build/badge.svg?branch=dev)](https://github.com/pmonks/for-science/actions?query=workflow%3Abuild) | [![Lint](https://github.com/pmonks/for-science/workflows/lint/badge.svg?branch=dev)](https://github.com/pmonks/for-science/actions?query=workflow%3Alint) | [![Dependencies](https://github.com/pmonks/for-science/workflows/dependencies/badge.svg?branch=dev)](https://github.com/pmonks/for-science/actions?query=workflow%3Adependencies) |
+| | | |
+|---:|:---:|:---:|
+| [**main**](https://github.com/pmonks/for-science/tree/main) | [![CI](https://github.com/pmonks/for-science/workflows/CI/badge.svg?branch=main)](https://github.com/pmonks/for-science/actions?query=workflow%3ACI+branch%3Amain) | [![Dependencies](https://github.com/pmonks/for-science/workflows/dependencies/badge.svg?branch=main)](https://github.com/pmonks/for-science/actions?query=workflow%3Adependencies+branch%3Amain) |
+| [**dev**](https://github.com/pmonks/for-science/tree/dev) | [![CI](https://github.com/pmonks/for-science/workflows/CI/badge.svg?branch=dev)](https://github.com/pmonks/for-science/actions?query=workflow%3ACI+branch%3Adev) | [![Dependencies](https://github.com/pmonks/for-science/workflows/dependencies/badge.svg?branch=dev)](https://github.com/pmonks/for-science/actions?query=workflow%3Adependencies+branch%3Adev) |
 
 [![Open Issues](https://img.shields.io/github/issues/pmonks/for-science.svg)](https://github.com/pmonks/for-science/issues)
 [![License](https://img.shields.io/github/license/pmonks/for-science.svg)](https://github.com/pmonks/for-science/blob/main/LICENSE)
