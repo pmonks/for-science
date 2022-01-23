@@ -1,3 +1,4 @@
-{:hash "df3592e781a9b55b43ed2d87e3452f0bb1e5585c",
- :date #inst "2022-01-04T23:13:39.785-00:00",
- :tag "1.0.20220104"}
+{:hash "165e83906ab06601e383b822823a391f9b2baa2a",
+ :date #inst "2022-01-23T09:00:54.489-00:00",
+ :repo "https://github.com/pmonks/for-science.git",
+ :tag "1.0.20220123"}
