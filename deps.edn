@@ -19,7 +19,7 @@
 {:paths ["src" "resources"]
  :deps
    {org.clojure/clojure               {:mvn/version "1.11.1"}
-    org.babashka/sci                  {:mvn/version "0.3.4"}
+    org.babashka/sci                  {:mvn/version "0.3.5"}
     com.github.pmonks/discljord-utils {:mvn/version "1.0.67"}}
  :aliases
    {:build {:deps       {io.github.seancorfield/build-clj {:git/tag "v0.8.0" :git/sha "9bd8b8a"}
