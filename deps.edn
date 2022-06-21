@@ -19,15 +19,15 @@
 {:paths ["src" "resources"]
  :deps
    {org.clojure/clojure               {:mvn/version "1.11.1"}
-    org.babashka/sci                  {:mvn/version "0.3.5"}
+    org.babashka/sci                  {:mvn/version "0.3.31"}
     com.github.pmonks/discljord-utils {:mvn/version "1.0.67"}}
  :aliases
-   {:build {:deps       {io.github.seancorfield/build-clj {:git/tag "v0.8.0" :git/sha "9bd8b8a"}
+   {:build {:deps       {io.github.seancorfield/build-clj {:git/tag "v0.8.2" :git/sha "0ffdb4c"}
                          com.github.pmonks/pbr            {:mvn/version "RELEASE"}}
             :ns-default pbr.build}
 
     ; clj -T:run <taskname> :config-file "<PATH_TO_CONFIG_FILE>"
-    :run   {:deps       {io.github.seancorfield/build-clj {:git/tag "v0.8.0" :git/sha "9bd8b8a"}
+    :run   {:deps       {io.github.seancorfield/build-clj {:git/tag "v0.8.2" :git/sha "0ffdb4c"}
                          com.github.pmonks/pbr            {:mvn/version "RELEASE"}}
             :ns-default run}
 
