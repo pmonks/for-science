@@ -22,12 +22,12 @@
     org.babashka/sci                  {:mvn/version "0.3.32"}
     com.github.pmonks/discljord-utils {:mvn/version "1.0.67"}}
  :aliases
-   {:build {:deps       {io.github.seancorfield/build-clj {:git/tag "v0.8.2" :git/sha "0ffdb4c"}
+   {:build {:deps       {io.github.seancorfield/build-clj {:git/tag "v0.8.3" :git/sha "7ac1f8d"}
                          com.github.pmonks/pbr            {:mvn/version "RELEASE"}}
             :ns-default pbr.build}
 
     ; clj -T:run <taskname> :config-file "<PATH_TO_CONFIG_FILE>"
-    :run   {:deps       {io.github.seancorfield/build-clj {:git/tag "v0.8.2" :git/sha "0ffdb4c"}
+    :run   {:deps       {io.github.seancorfield/build-clj {:git/tag "v0.8.3" :git/sha "7ac1f8d"}
                          com.github.pmonks/pbr            {:mvn/version "RELEASE"}}
             :ns-default run}
 
