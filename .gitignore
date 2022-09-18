@@ -17,3 +17,4 @@ uberjar/
 .eastwood
 attic
 resources/logback-test.xml
+docker.env
