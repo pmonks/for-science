@@ -12,4 +12,4 @@ ENV APP_FILE for-science-standalone.jar
 WORKDIR $APP_DIR
 COPY --from=build-stage $APP_DIR/target/$APP_FILE $APP_DIR
 ENTRYPOINT ["sh", "-c"]
-CMD ["exec java -jar $APP_FILE"]
+CMD ["exec java -XX:NativeMemoryTracking=summary -XX:+UseContainerSupport -Dclojure.server.repl='{:port 5555 :accept clojure.core.server/repl}' -jar $APP_FILE"]
