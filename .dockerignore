@@ -21,10 +21,3 @@ config.edn
 docker.env
 run.clj
 resources/logback-test.xml
-
-# Heroku stuff (to be removed once for-science is running elsewhere)
-Procfile
-bin/
-project.clj
-system.properties
-heroku-config.edn
