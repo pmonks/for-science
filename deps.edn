@@ -19,10 +19,10 @@
 {:paths ["src" "resources"]
  :deps
    {org.clojure/clojure               {:mvn/version "1.11.1"}
-    org.babashka/sci                  {:mvn/version "0.5.36"}
+    org.babashka/sci                  {:mvn/version "0.6.37"}
     com.github.pmonks/discljord-utils {:mvn/version "1.0.91"}}
  :aliases
-   {:build {:deps       {io.github.clojure/tools.build {:git/tag "v0.8.5" :git/sha "9c738da"}
+   {:build {:deps       {io.github.clojure/tools.build {:git/tag "v0.9.0" :git/sha "8c93e0c"}
                          com.github.pmonks/pbr         {:mvn/version "RELEASE"}}
             :ns-default pbr.build}
 
