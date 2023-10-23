@@ -1,12 +1,12 @@
 # Build stage
-FROM clojure:temurin-17-tools-deps-jammy as build-stage
+FROM clojure:temurin-21-tools-deps-jammy as build-stage
 ENV APP_DIR /opt/for-science
 WORKDIR $APP_DIR
 COPY . $APP_DIR
 RUN clojure -Srepro -J-Dclojure.main.report=stderr -T:build uber
 
 # Run stage
-FROM eclipse-temurin:17-alpine
+FROM eclipse-temurin:21-alpine
 ENV APP_DIR /opt/for-science
 ENV APP_FILE for-science-standalone.jar
 WORKDIR $APP_DIR
