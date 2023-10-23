@@ -16,18 +16,13 @@
 ; SPDX-License-Identifier: Apache-2.0
 ;
 
-(def lib       'org.github.pmonks/for-science)
-(def version   (format "1.0.%s" (.format (java.text.SimpleDateFormat. "yyyyMMdd") (java.util.Date.))))
-(def uber-file "./target/for-science-standalone.jar")
-(def main      'bot.main)
-
 (defn set-opts
   [opts]
   (assoc opts
-         :lib              lib
-         :version          version
-         :uber-file        uber-file
-         :main             main
+         :lib              'org.github.pmonks/for-science
+         :version          (format "1.0.%s" (.format (java.text.SimpleDateFormat. "yyyyMMdd") (java.util.Date.)))
+         :uber-file        "./target/for-science-standalone.jar"
+         :main             'bot.main
          :deploy-info-file "./resources/build-info.edn"
          :write-pom        true
          :pom {:description      "A small Discord bot that you can send Clojure code to, to experiment with the language, demonstrate core language principles, or just mess about."
