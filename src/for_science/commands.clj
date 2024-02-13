@@ -20,6 +20,7 @@
   (:require [clojure.string               :as s]
             [clojure.tools.logging        :as log]
             [sci.core                     :as sci]
+            [embroidery.api               :as e]
             [discljord.formatting         :as df]
             [discljord-utils.message-util :as mu]
             [bot.commands                 :as cmd]
@@ -43,7 +44,7 @@
    (when code
      (log/debug "Evaluating Clojure forms:" code)
      (let [result (try
-                    (let [f           (future
+                    (let [f           (e/future*
                                         (try
                                           (let [sw     (java.io.StringWriter.)
                                                 result (sci/binding [sci/out sw
