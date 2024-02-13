@@ -20,7 +20,7 @@
  :deps
    {org.clojure/clojure               {:mvn/version "1.11.1"}
     org.babashka/sci                  {:mvn/version "0.8.41"}
-    com.github.pmonks/discljord-utils {:mvn/version "1.0.91"}}
+    com.github.pmonks/discljord-utils {:mvn/version "1.0.126"}}
  :aliases
    {:build {:deps       {com.github.pmonks/pbr {:mvn/version "RELEASE"}}
             :ns-default pbr.build}
