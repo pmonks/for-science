@@ -1,16 +1,16 @@
 | | | |
 |---:|:---:|:---:|
-| [**main**](https://github.com/pmonks/for-science/tree/main) | [![CI](https://github.com/pmonks/for-science/workflows/CI/badge.svg?branch=main)](https://github.com/pmonks/for-science/actions?query=workflow%3ACI+branch%3Amain) | [![Dependencies](https://github.com/pmonks/for-science/workflows/dependencies/badge.svg?branch=main)](https://github.com/pmonks/for-science/actions?query=workflow%3Adependencies+branch%3Amain) |
+| [**release**](https://github.com/pmonks/for-science/tree/release) | [![CI](https://github.com/pmonks/for-science/workflows/CI/badge.svg?branch=release)](https://github.com/pmonks/for-science/actions?query=workflow%3ACI+branch%3Arelease) | [![Dependencies](https://github.com/pmonks/for-science/workflows/dependencies/badge.svg?branch=release)](https://github.com/pmonks/for-science/actions?query=workflow%3Adependencies+branch%3Arelease) |
 | [**dev**](https://github.com/pmonks/for-science/tree/dev) | [![CI](https://github.com/pmonks/for-science/workflows/CI/badge.svg?branch=dev)](https://github.com/pmonks/for-science/actions?query=workflow%3ACI+branch%3Adev) | [![Dependencies](https://github.com/pmonks/for-science/workflows/dependencies/badge.svg?branch=dev)](https://github.com/pmonks/for-science/actions?query=workflow%3Adependencies+branch%3Adev) |
 
 [![Open Issues](https://img.shields.io/github/issues/pmonks/for-science.svg)](https://github.com/pmonks/for-science/issues)
-[![License](https://img.shields.io/github/license/pmonks/for-science.svg)](https://github.com/pmonks/for-science/blob/main/LICENSE)
+[![License](https://img.shields.io/github/license/pmonks/for-science.svg)](https://github.com/pmonks/for-science/blob/release/LICENSE)
 
 # for-science
 
 A small [Discord](https://discord.com/) bot that you can send Clojure code to, to experiment with the language, demonstrate core language principles, or just mess about.  Note: only supports the subset of Clojure's core provided by the [Small Clojure Interpreter](https://github.com/borkdude/sci).
 
-Please review the [privacy policy](https://github.com/pmonks/for-science/blob/main/PRIVACY.md) before interacting with the bot.
+Please review the [privacy policy](https://github.com/pmonks/for-science/blob/release/PRIVACY.md) before interacting with the bot.
 
 ## Adding the Bot to Your Discord Server
 
@@ -38,22 +38,22 @@ Currently the bot is only distributed in source form, so regardless of how you i
 
 #### Direct Execution
 
-1. Either set environment variables as described in the default [`config.edn` file](https://github.com/pmonks/for-science/blob/main/resources/config.edn), or copy that file somewhere else and hardcode the values in the file directly.
+1. Either set environment variables as described in the default [`config.edn` file](https://github.com/pmonks/for-science/blob/release/resources/config.edn), or copy that file somewhere else and hardcode the values in the file directly.
 2. If you set the environment variables in the previous step run `clj -M:run`, otherwise run `clj -M:run -c /path/to/your/config.edn`
 
 ## Contributor Information
 
-[Contributing Guidelines](https://github.com/pmonks/for-science/blob/main/.github/CONTRIBUTING.md)
+[Contributing Guidelines](https://github.com/pmonks/for-science/blob/release/.github/CONTRIBUTING.md)
 
 [Bug Tracker](https://github.com/pmonks/for-science/issues)
 
-[Code of Conduct](https://github.com/pmonks/for-science/blob/main/.github/CODE_OF_CONDUCT.md)
+[Code of Conduct](https://github.com/pmonks/for-science/blob/release/.github/CODE_OF_CONDUCT.md)
 
 ### Developer Workflow
 
-This project uses the [git-flow branching strategy](https://nvie.com/posts/a-successful-git-branching-model/), with the caveat that the permanent branches are called `main` and `dev`, and any changes to the `main` branch are considered a release and auto-deployed (push to Heroku).
+This project uses the [git-flow branching strategy](https://nvie.com/posts/a-successful-git-branching-model/), and the permanent branches are called `release` and `dev`, and any changes to the `release` branch are considered a release and auto-deployed (to Digital Ocean).
 
-For this reason, **all development must occur either in branch `dev`, or (preferably) in temporary branches off of `dev`.**  All PRs from forked repos must also be submitted against `dev`; the `main` branch is **only** updated from `dev` via PRs created by the core development team.  All other changes submitted to `main` will be rejected.
+For this reason, **all development must occur either in branch `dev`, or (preferably) in temporary branches off of `dev`.**  All PRs from forked repos must also be submitted against `dev`; the `release` branch is **only** updated from `dev` via PRs created by the core development team.  All other changes submitted to `release` will be rejected.
 
 ## License
 
