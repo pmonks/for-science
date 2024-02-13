@@ -21,6 +21,7 @@
   (assoc opts
          :lib              'org.github.pmonks/for-science
          :version          (format "1.0.%s" (.format (java.text.SimpleDateFormat. "yyyyMMdd") (java.util.Date.)))
+         :prod-branch      "release"
          :uber-file        "./target/for-science-standalone.jar"
          :main             'bot.main
          :deploy-info-file "./resources/build-info.edn"
