@@ -1,5 +1,5 @@
 # Build stage
-FROM clojure:temurin-21-tools-deps-jammy as build-stage
+FROM clojure:temurin-21-tools-deps as build-stage
 ENV APP_DIR /opt/for-science
 WORKDIR $APP_DIR
 COPY . $APP_DIR
