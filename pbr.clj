@@ -21,13 +21,14 @@
   (assoc opts
          :lib              'org.github.pmonks/for-science
          :version          (format "1.0.%s" (.format (java.text.SimpleDateFormat. "yyyyMMdd") (java.util.Date.)))
+         :prod-branch      "release"
          :uber-file        "./target/for-science-standalone.jar"
          :main             'bot.main
          :deploy-info-file "./resources/build-info.edn"
          :write-pom        true
          :pom {:description      "A small Discord bot that you can send Clojure code to, to experiment with the language, demonstrate core language principles, or just mess about."
                :url              "https://github.com/pmonks/for-science"
-               :licenses         [:license   {:name "Apache License 2.0" :url "http://www.apache.org/licenses/LICENSE-2.0.html"}]
+               :licenses         [:license   {:name "Apache-2.0" :url "http://www.apache.org/licenses/LICENSE-2.0.html"}]
                :developers       [:developer {:id "pmonks" :name "Peter Monks" :email "pmonks+forscience@gmail.com"}]
                :scm              {:url "https://github.com/pmonks/for-science" :connection "scm:git:git://github.com/pmonks/for-science.git" :developer-connection "scm:git:ssh://git@github.com/pmonks/for-science.git"}
                :issue-management {:system "github" :url "https://github.com/pmonks/for-science/issues"}}))
