@@ -17,9 +17,12 @@
 ;
 
 (ns for-science.commands
-  (:require [clojure.string               :as s]
+  (:require [clojure.core                 :as c]
+            [clojure.string               :as s]
+            [clojure.math                 :as m]   ; Required for sci initialisation
             [clojure.tools.logging        :as log]
             [sci.core                     :as sci]
+            [sci.impl.utils               :as sciiu]
             [embroidery.api               :as e]
             [discljord.formatting         :as df]
             [discljord-utils.message-util :as mu]
@@ -30,8 +33,27 @@
 
 (def clojure-code-fence-regex #"(?s)```(clojure)??\s+(.*?)```")
 
-(def code-prefix "(use 'clojure.repl)")  ; Prefix to all code evaluation
-(def sci-opts    {})                     ; sci options map
+; See https://github.com/babashka/sci/issues/952
+; From https://github.com/babashka/sci.configs/blob/main/src/sci/configs/clojure_1_11.cljc
+(def ^:private clojure-core-namespace-extras-1-11
+  {'abs (sci/copy-var c/abs sciiu/clojure-core-ns)
+   'NaN? (sci/copy-var c/NaN? sciiu/clojure-core-ns)
+   'infinite? (sci/copy-var c/infinite? sciiu/clojure-core-ns)
+   'parse-double (sci/copy-var c/parse-double sciiu/clojure-core-ns)
+   'parse-long (sci/copy-var c/parse-long sciiu/clojure-core-ns)
+   'parse-boolean (sci/copy-var c/parse-boolean sciiu/clojure-core-ns)
+   'parse-uuid (sci/copy-var c/parse-uuid sciiu/clojure-core-ns)
+   'random-uuid (sci/copy-var c/random-uuid sciiu/clojure-core-ns)
+   'update-keys (sci/copy-var c/update-keys sciiu/clojure-core-ns)
+   'update-vals (sci/copy-var c/update-vals sciiu/clojure-core-ns)
+   'iteration (sci/copy-var c/iteration sciiu/clojure-core-ns)})
+
+(def math       (sci/create-ns 'clojure.math))
+(def math-ns    (sci/copy-ns clojure.math math))
+(def namespaces {'clojure.core clojure-core-namespace-extras-1-11 'clojure.math math-ns})
+
+(def code-prefix "(use 'clojure.repl)")                ; Prefix to all code evaluation
+(def sci-ctx     (sci/init {:namespaces namespaces}))  ; sci context
 
 (defn- eval-clj
   "Evaluates the given Clojure code, with a timeout on execution (default is 2 seconds). Result is a map which may contain these keys:
@@ -49,7 +71,7 @@
                                           (let [sw     (java.io.StringWriter.)
                                                 result (sci/binding [sci/out sw
                                                                      sci/err sw]
-                                                         (pr-str (sci/eval-string (str code-prefix "\n" code) sci-opts)))]    ; Make sure we stringify the result inside sci/binding, to force de-lazying of the result of evaluating code
+                                                         (pr-str (sci/eval-string* sci-ctx (str code-prefix "\n" code))))]    ; Make sure we stringify the result inside sci/binding, to force de-lazying of the result of evaluating code
                                             (merge {:result result}
                                                    (when-let [output (when-not (s/blank? (str sw)) (str sw))] {:output output})))
                                           (catch Throwable t
