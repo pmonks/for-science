@@ -19,11 +19,12 @@
 (ns for-science.commands
   (:require [clojure.core                 :as c]
             [clojure.string               :as s]
-            [clojure.math                 :as m]   ; Required for sci initialisation
+            [clojure.math                 :as m]   ; Ignore clj-kondo warning: this is required for sci initialisation
             [clojure.tools.logging        :as log]
             [sci.core                     :as sci]
             [sci.impl.utils               :as sciiu]
             [embroidery.api               :as e]
+            [rencg.api                    :as re]
             [discljord.formatting         :as df]
             [discljord-utils.message-util :as mu]
             [bot.commands                 :as cmd]
@@ -31,22 +32,22 @@
 
 (def default-timeout-in-sec 2)
 
-(def clojure-code-fence-regex #"(?s)```(clojure)??\s+(.*?)```")
+(def clojure-code-fence-regex #"(?is)```(?:(?:clojure|clj)\s+)?(?<source>.*?)```")
 
 ; See https://github.com/babashka/sci/issues/952
 ; From https://github.com/babashka/sci.configs/blob/main/src/sci/configs/clojure_1_11.cljc
 (def ^:private clojure-core-namespace-extras-1-11
-  {'abs (sci/copy-var c/abs sciiu/clojure-core-ns)
-   'NaN? (sci/copy-var c/NaN? sciiu/clojure-core-ns)
-   'infinite? (sci/copy-var c/infinite? sciiu/clojure-core-ns)
-   'parse-double (sci/copy-var c/parse-double sciiu/clojure-core-ns)
-   'parse-long (sci/copy-var c/parse-long sciiu/clojure-core-ns)
+  {'abs           (sci/copy-var c/abs           sciiu/clojure-core-ns)
+   'NaN?          (sci/copy-var c/NaN?          sciiu/clojure-core-ns)
+   'infinite?     (sci/copy-var c/infinite?     sciiu/clojure-core-ns)
+   'parse-double  (sci/copy-var c/parse-double  sciiu/clojure-core-ns)
+   'parse-long    (sci/copy-var c/parse-long    sciiu/clojure-core-ns)
    'parse-boolean (sci/copy-var c/parse-boolean sciiu/clojure-core-ns)
-   'parse-uuid (sci/copy-var c/parse-uuid sciiu/clojure-core-ns)
-   'random-uuid (sci/copy-var c/random-uuid sciiu/clojure-core-ns)
-   'update-keys (sci/copy-var c/update-keys sciiu/clojure-core-ns)
-   'update-vals (sci/copy-var c/update-vals sciiu/clojure-core-ns)
-   'iteration (sci/copy-var c/iteration sciiu/clojure-core-ns)})
+   'parse-uuid    (sci/copy-var c/parse-uuid    sciiu/clojure-core-ns)
+   'random-uuid   (sci/copy-var c/random-uuid   sciiu/clojure-core-ns)
+   'update-keys   (sci/copy-var c/update-keys   sciiu/clojure-core-ns)
+   'update-vals   (sci/copy-var c/update-vals   sciiu/clojure-core-ns)
+   'iteration     (sci/copy-var c/iteration     sciiu/clojure-core-ns)})
 
 (def math       (sci/create-ns 'clojure.math))
 (def math-ns    (sci/copy-ns clojure.math math))
@@ -87,18 +88,21 @@
        result))))
 
 (defn ^{:bot-command "clj"} clj-command!
-  "Evaluates the body of the message as Clojure code, or, if the message contains clojure or unqualified code fences, combines and evaluates them (ignoring everything outside the code fences, thereby enabling 'literate' style messages)"
+  "Evaluates the body of the message as Clojure code, or, if the message contains clojure, clj, or unqualified code fences, combines and evaluates them (ignoring everything outside the code fences, thereby enabling 'literate' style messages)"
   [args event-data]
   (when-not (s/blank? args)
-    (let [channel-id          (:channel-id event-data)
-          clojure-code-fences (re-seq clojure-code-fence-regex args)
-          result              (if clojure-code-fences
-                                (eval-clj (s/join "\n" (map #(nth % 2) clojure-code-fences)))   ; 3rd group in the regex is the code
-                                (eval-clj args))
-          message             (if (:error result)
-                                (str "```\n⚠️ " (:error result) "\n```")
-                                (str (when (:output result) (str "Output:\n```\n" (:output result) "\n```\n"))
-                                     "Result:\n```clojure\n" (:result result) "\n```"))]
+    (let [channel-id   (:channel-id event-data)
+          clojure-code (s/trim
+                         (if-let [clojure-snippets (re/re-seq-ncg clojure-code-fence-regex args)]
+                           (s/join "\n" (filter #(not (s/blank? %)) (map #(get % "source") clojure-snippets)))
+                           args))
+;####TEST!!!!
+_ (println "⭐️⭐️⭐️" clojure-code)
+          eval-result  (eval-clj clojure-code)
+          message      (if (:error eval-result)
+                         (str "```\n⚠️ " (:error eval-result) "\n```")
+                         (str (when (:output eval-result) (str "Output:\n```\n" (:output eval-result) "\n```\n"))
+                              "Result:\n```clojure\n" (:result eval-result) "\n```"))]
       (mu/create-message! (:discord-message-channel cfg/config)
                           channel-id
                           :embed (assoc (cmd/embed-template)
