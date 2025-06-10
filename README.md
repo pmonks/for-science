@@ -1,12 +1,9 @@
-| | | |
-|---:|:---:|:---:|
-| [**release**](https://github.com/pmonks/for-science/tree/release) | [![CI](https://github.com/pmonks/for-science/actions/workflows/ci.yml/badge.svg?branch=release)](https://github.com/pmonks/for-science/actions?query=workflow%3ACI+branch%3Arelease) | [![Dependencies](https://github.com/pmonks/for-science/actions/workflows/dependencies.yml/badge.svg?branch=release)](https://github.com/pmonks/for-science/actions?query=workflow%3Adependencies+branch%3Arelease) |
-| [**dev**](https://github.com/pmonks/for-science/tree/dev) | [![CI](https://github.com/pmonks/for-science/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/pmonks/for-science/actions?query=workflow%3ACI+branch%3Adev) | [![Dependencies](https://github.com/pmonks/for-science/actions/workflows/dependencies.yml/badge.svg?branch=dev)](https://github.com/pmonks/for-science/actions?query=workflow%3Adependencies+branch%3Adev) |
+# for-science
 
+[![CI](https://github.com/pmonks/for-science/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/pmonks/for-science/actions?query=workflow%3ACI+branch%3Adev) [![Dependencies](https://github.com/pmonks/for-science/actions/workflows/dependencies.yml/badge.svg?branch=dev)](https://github.com/pmonks/for-science/actions?query=workflow%3Adependencies+branch%3Adev)
+<br/>
 [![Open Issues](https://img.shields.io/github/issues/pmonks/for-science.svg)](https://github.com/pmonks/for-science/issues)
 [![License](https://img.shields.io/github/license/pmonks/for-science.svg)](https://github.com/pmonks/for-science/blob/release/LICENSE)
-
-# for-science
 
 A small [Discord](https://discord.com/) bot that you can send Clojure code to, to experiment with the language, demonstrate core language principles, or just mess about.  Note: only supports the subset of Clojure's core provided by the [Small Clojure Interpreter](https://github.com/borkdude/sci).
 
@@ -19,7 +16,7 @@ If you're an administrator of a server, [click here](https://discord.com/oauth2/
 ## Using the Bot
 
 The bot provides these commands in any channel or a DM:
-* `!clj ...forms...` - evaluate the following text as Clojure forms. If code fences are used, will only evaluate text within those code fences (thereby allowing for a "literate" style of message).  Note that each use of this command is run in a "fresh" instance of the interpreter - no state is maintained between invocations (to help avoid memory leaks).  If this is limiting for your use case, please [chime in here](https://github.com/pmonks/for-science/issues/7).
+* `!clj ...forms...` - evaluate the following text as Clojure forms. If multiline code fences are used, will only evaluate text within those code fences (thereby allowing for a "literate" style of message).  Note that each use of this command is run in a "fresh" instance of the interpreter - no state is maintained between invocations (to help avoid memory leaks).  If this is limiting for your use case, please [chime in here](https://github.com/pmonks/for-science/issues/7).
 * `!move #channel` - logically moves the current conversation to #channel. This is done by posting cross-linked messages in both this channel and the other channel, and asking users to continue in the other channel. Note: it doesn't actually move any messages in a technical sense - it's more about logically moving a conversation from that point forward.
 
 It also provides these commands in a DM only:
@@ -59,6 +56,6 @@ For this reason, **all development must occur either in branch `dev`, or (prefer
 
 Copyright © 2021 Peter Monks
 
-Distributed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+Distributed under the [Mozilla Public License, version 2.0](https://www.mozilla.org/en-US/MPL/2.0/).
 
-SPDX-License-Identifier: [Apache-2.0](https://spdx.org/licenses/Apache-2.0)
+SPDX-License-Identifier: [`MPL-2.0`](https://spdx.org/licenses/MPL-2.0)

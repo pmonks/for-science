@@ -6,6 +6,7 @@
     :http-status-port #or [#env PORT 8080]
   }
 
+  :production-mode            #or [#env PRODUCTION_MODE "false"]
   :discord-api-token          #env DISCORD_API_TOKEN
   :discord-event-channel-size #or [#env DISCORD_EVENT_CHANNEL_SIZE 100]   ; Default = 100 queue slots
 }
