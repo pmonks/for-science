@@ -1,19 +1,11 @@
 ;
 ; Copyright © 2021 Peter Monks
 ;
-; Licensed under the Apache License, Version 2.0 (the "License");
-; you may not use this file except in compliance with the License.
-; You may obtain a copy of the License at
+; This Source Code Form is subject to the terms of the Mozilla Public
+; License, v. 2.0. If a copy of the MPL was not distributed with this
+; file, You can obtain one at https://mozilla.org/MPL/2.0/.
 ;
-;     http://www.apache.org/licenses/LICENSE-2.0
-;
-; Unless required by applicable law or agreed to in writing, software
-; distributed under the License is distributed on an "AS IS" BASIS,
-; WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-; See the License for the specific language governing permissions and
-; limitations under the License.
-;
-; SPDX-License-Identifier: Apache-2.0
+; SPDX-License-Identifier: MPL-2.0
 ;
 
 (ns for-science.commands
@@ -30,9 +22,9 @@
             [bot.commands                 :as cmd]
             [bot.config                   :as cfg]))
 
-(def default-timeout-in-sec 2)
+(def ^:private default-timeout-in-sec 2)
 
-(def clojure-code-fence-regex #"(?is)```(?:(?:clojure|clj)\s+)?(?<source>.*?)```")
+(def ^:private clojure-code-fence-regex #"(?is)```(?:(?:clojure|clj)\s+)?(?<source>.*?)```")
 
 ; See https://github.com/babashka/sci/issues/952
 ; From https://github.com/babashka/sci.configs/blob/main/src/sci/configs/clojure_1_11.cljc
@@ -49,12 +41,12 @@
    'update-vals   (sci/copy-var c/update-vals   sciiu/clojure-core-ns)
    'iteration     (sci/copy-var c/iteration     sciiu/clojure-core-ns)})
 
-(def math       (sci/create-ns 'clojure.math))
-(def math-ns    (sci/copy-ns clojure.math math))
-(def namespaces {'clojure.core clojure-core-namespace-extras-1-11 'clojure.math math-ns})
+(def ^:private math       (sci/create-ns 'clojure.math))
+(def ^:private math-ns    (sci/copy-ns clojure.math math))
+(def ^:private namespaces {'clojure.core clojure-core-namespace-extras-1-11 'clojure.math math-ns})
 
-(def code-prefix "(use 'clojure.repl)")                ; Prefix to all code evaluation
-(def sci-ctx     (sci/init {:namespaces namespaces}))  ; sci context
+(def ^:private code-prefix "(use 'clojure.repl)")                ; Prefix to all code evaluation
+(def ^:private sci-ctx     (sci/init {:namespaces namespaces}))  ; sci context
 
 (defn- eval-clj
   "Evaluates the given Clojure code, with a timeout on execution (default is 2 seconds). Result is a map which may contain these keys:
@@ -96,8 +88,6 @@
                          (if-let [clojure-snippets (re/re-seq-ncg clojure-code-fence-regex args)]
                            (s/join "\n" (filter #(not (s/blank? %)) (map #(get % "source") clojure-snippets)))
                            args))
-;####TEST!!!!
-_ (println "⭐️⭐️⭐️" clojure-code)
           eval-result  (eval-clj clojure-code)
           message      (if (:error eval-result)
                          (str "```\n⚠️ " (:error eval-result) "\n```")
