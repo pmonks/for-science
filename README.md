@@ -1,7 +1,7 @@
 # for-science
 
-[![CI](https://github.com/pmonks/for-science/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/pmonks/for-science/actions?query=workflow%3ACI+branch%3Adev) [![Dependencies](https://github.com/pmonks/for-science/actions/workflows/dependencies.yml/badge.svg?branch=dev)](https://github.com/pmonks/for-science/actions?query=workflow%3Adependencies+branch%3Adev)
-<br/>
+[![CI](https://github.com/pmonks/for-science/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/pmonks/for-science/actions?query=workflow%3ACI+branch%3Adev)
+[![Dependencies](https://github.com/pmonks/for-science/actions/workflows/dependencies.yml/badge.svg?branch=dev)](https://github.com/pmonks/for-science/actions?query=workflow%3Adependencies+branch%3Adev)
 [![Open Issues](https://img.shields.io/github/issues/pmonks/for-science.svg)](https://github.com/pmonks/for-science/issues)
 [![License](https://img.shields.io/github/license/pmonks/for-science.svg)](https://github.com/pmonks/for-science/blob/release/LICENSE)
 
@@ -17,7 +17,7 @@ If you're an administrator of a server, [click here](https://discord.com/oauth2/
 
 The bot provides these commands in any channel or a DM:
 * `!clj ...forms...` - evaluate the following text as Clojure forms. If multiline code fences are used, will only evaluate text within those code fences (thereby allowing for a "literate" style of message).  Note that each use of this command is run in a "fresh" instance of the interpreter - no state is maintained between invocations (to help avoid memory leaks).  If this is limiting for your use case, please [chime in here](https://github.com/pmonks/for-science/issues/7).
-* `!move #channel` - logically moves the current conversation to #channel. This is done by posting cross-linked messages in both this channel and the other channel, and asking users to continue in the other channel. Note: it doesn't actually move any messages in a technical sense - it's more about logically moving a conversation from that point forward.
+* `!move #channel` - logically moves the current conversation to #channel. This is done by posting cross-linked messages in both this channel and the other channel, and asking users to continue in the other channel. Note: it doesn't actually move any messages in a technical sense - it's more about logically moving a conversation from that point forward. Note that this command is somewhat overshadowed by the "forward" feature Discord added in 2024, but is different enough that it may still be independently useful.
 
 It also provides these commands in a DM only:
 * `!help` - provides brief help.
