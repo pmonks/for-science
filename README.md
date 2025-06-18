@@ -4,6 +4,8 @@
 [![Dependencies](https://github.com/pmonks/for-science/actions/workflows/dependencies.yml/badge.svg?branch=dev)](https://github.com/pmonks/for-science/actions?query=workflow%3Adependencies+branch%3Adev)
 [![Open Issues](https://img.shields.io/github/issues/pmonks/for-science.svg)](https://github.com/pmonks/for-science/issues)
 [![License](https://img.shields.io/github/license/pmonks/for-science.svg)](https://github.com/pmonks/for-science/blob/release/LICENSE)
+![Maintained](https://badges.ws/badge/?label=maintained&value=yes,+at+author's+discretion)
+
 
 A small [Discord](https://discord.com/) bot that you can send Clojure code to, to experiment with the language, demonstrate core language principles, or just mess about.  Note: only supports the subset of Clojure's core provided by the [Small Clojure Interpreter](https://github.com/borkdude/sci).
 
