@@ -11,7 +11,7 @@
 {:paths ["src" "resources"]
  :deps
    {org.clojure/clojure               {:mvn/version "1.12.1"}
-    org.babashka/sci                  {:mvn/version "0.10.46"}
+    org.babashka/sci                  {:mvn/version "0.10.47"}
     com.github.pmonks/rencg           {:mvn/version "1.0.64"}
     com.github.pmonks/discljord-utils {:mvn/version "1.0.137"}}
  :aliases
