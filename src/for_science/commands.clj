@@ -23,6 +23,7 @@
             [bot.config                   :as cfg]))
 
 (def ^:private default-timeout-in-sec 2)
+(def ^:private maximum-output-length  512)
 
 (def ^:private clojure-code-fence-regex #"(?is)```(?:(?:clojure|clj)\s+)?(?<source>.*?)```")
 
@@ -48,6 +49,14 @@
 (def ^:private code-prefix "(use 'clojure.repl)")                ; Prefix to all code evaluation
 (def ^:private sci-ctx     (sci/init {:namespaces namespaces}))  ; sci context
 
+(defn- truncate-string
+  "Truncates a string to our maximum allowed output length, appending"
+  [^String s]
+  (when s
+    (if (>= (count s) maximum-output-length)
+      (str (subs s 0 maximum-output-length) "...and more")
+      s)))
+
 (defn- eval-clj
   "Evaluates the given Clojure code, with a timeout on execution (default is 2 seconds). Result is a map which may contain these keys:
 
@@ -64,9 +73,9 @@
                                           (let [sw     (java.io.StringWriter.)
                                                 result (sci/binding [sci/out sw
                                                                      sci/err sw]
-                                                         (pr-str (sci/eval-string* sci-ctx (str code-prefix "\n" code))))]    ; Make sure we stringify the result inside sci/binding, to force de-lazying of the result of evaluating code
+                                                         (truncate-string (pr-str (sci/eval-string* sci-ctx (str code-prefix "\n" code)))))]    ; Make sure we stringify the result inside sci/binding, to force de-lazying of the result of evaluating code
                                             (merge {:result result}
-                                                   (when-let [output (when-not (s/blank? (str sw)) (str sw))] {:output output})))
+                                                   (when-let [output (when-not (s/blank? (str sw)) (truncate-string (str sw)))] {:output output})))
                                           (catch Throwable t
                                             {:error t})))
                           eval-result (deref f
