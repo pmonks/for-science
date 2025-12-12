@@ -10,7 +10,7 @@
 
 {:paths ["src" "resources"]
  :deps
-   {org.clojure/clojure               {:mvn/version "1.12.3"}
+   {org.clojure/clojure               {:mvn/version "1.12.4"}
     org.babashka/sci                  {:mvn/version "0.10.49"}
     com.github.pmonks/rencg           {:mvn/version "1.0.64"}
     com.github.pmonks/discljord-utils {:mvn/version "1.0.137"}}
