@@ -94,7 +94,7 @@
   (when-not (s/blank? args)
     (let [channel-id   (:channel-id event-data)
           clojure-code (s/trim
-                         (if-let [clojure-snippets (re/re-seq-ncg clojure-code-fence-regex args)]
+                         (if-let [clojure-snippets (re/re-seq clojure-code-fence-regex args)]
                            (s/join "\n" (filter #(not (s/blank? %)) (map #(get % "source") clojure-snippets)))
                            args))
           eval-result  (eval-clj clojure-code)
