@@ -2,7 +2,7 @@
 {
   :bot {
     :ns               "for-science.commands"
-    :logo             "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Clojure_logo.svg/240px-Clojure_logo.svg.png"
+    :logo             "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5d/Clojure_logo.svg/250px-Clojure_logo.svg.png"
     :http-status-port #or [#env PORT 8080]
   }
 
