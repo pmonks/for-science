@@ -8,5 +8,7 @@
 
   :production-mode            #or [#env PRODUCTION_MODE "false"]
   :discord-api-token          #env DISCORD_API_TOKEN
+  :discord-application-id     #env DISCORD_APPLICATION_ID   ; Only needed for slash commands (Discord developer portal -> General Information -> Application ID)
   :discord-event-channel-size #or [#env DISCORD_EVENT_CHANNEL_SIZE 100]   ; Default = 100 queue slots
+  :reload-command-definitions #or [#env RELOAD_COMMAND_DEFINITIONS "false"]
 }

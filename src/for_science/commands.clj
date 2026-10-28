@@ -15,9 +15,12 @@
             [clojure.tools.logging        :as log]
             [sci.core                     :as sci]
             [sci.impl.utils               :as sciiu]
+            [slash.command                :as slash-cmd]
+            [slash.command.structure      :as stc]
+            [slash.component.structure    :as cmps]
             [embroidery.api               :as e]
             [rencg.api                    :as re]
-            [discljord.formatting         :as df]
+            [discljord-utils.util         :as u]
             [discljord-utils.message-util :as mu]
             [bot.commands                 :as cmd]
             [bot.config                   :as cfg]))
@@ -88,52 +91,129 @@
        (log/debug "Result:" result)
        result))))
 
+(def ^:private max-displayed-code-length 1000)
+(def ^:private ephemeral-flag               64)   ; Discord message flag: only visible to the user who invoked the command
+
+(defn- extract-code
+  "Extracts the Clojure code from `text`: if it contains clojure, clj or unqualified code fences, combines their contents (ignoring everything outside the fences, thereby enabling 'literate' style messages), otherwise returns `text` as is."
+  [text]
+  (s/trim
+    (if-let [clojure-snippets (re/re-seq clojure-code-fence-regex text)]
+      (s/join "\n" (filter #(not (s/blank? %)) (map #(get % "source") clojure-snippets)))
+      text)))
+
+(defn- format-eval-result
+  [eval-result]
+  (if (:error eval-result)
+    (str "```\n⚠️ " (:error eval-result) "\n```")
+    (str (when (:output eval-result) (str "Output:\n```\n" (:output eval-result) "\n```\n"))
+         "Result:\n```clojure\n" (:result eval-result) "\n```")))
+
+(defn- truncate
+  [s max-length]
+  (if (> (count s) max-length)
+    (str (subs s 0 max-length) "…")
+    s))
+
 (defn ^{:bot-command "clj"} clj-command!
   "Evaluates the body of the message as Clojure code, or, if the message contains clojure, clj, or unqualified code fences, combines and evaluates them (ignoring everything outside the code fences, thereby enabling 'literate' style messages)"
   [args event-data]
   (when-not (s/blank? args)
-    (let [channel-id   (:channel-id event-data)
-          clojure-code (s/trim
-                         (if-let [clojure-snippets (re/re-seq clojure-code-fence-regex args)]
-                           (s/join "\n" (filter #(not (s/blank? %)) (map #(get % "source") clojure-snippets)))
-                           args))
-          eval-result  (eval-clj clojure-code)
-          message      (if (:error eval-result)
-                         (str "```\n⚠️ " (:error eval-result) "\n```")
-                         (str (when (:output eval-result) (str "Output:\n```\n" (:output eval-result) "\n```\n"))
-                              "Result:\n```clojure\n" (:result eval-result) "\n```"))]
-      (mu/create-message! (:discord-message-channel cfg/config)
-                          channel-id
-                          :embed (assoc (cmd/embed-template)
-                                        :description message)))))
+    (mu/create-message! (:discord-message-channel cfg/config)
+                        (:channel-id event-data)
+                        :embed (assoc (cmd/embed-template)
+                                      :description (format-eval-result (eval-clj (extract-code args)))))))
 
-(defn ^{:bot-command "move"} move-command!
-  "Moves a conversation to the specified channel e.g. !move #memes"
-  [args event-data]
-  (when (not (mu/direct-message? event-data))   ; Only respond if the message was sent to a real channel in a server (i.e. not in a DM)
-    (let [guild-id                (:guild-id event-data)
-          channel-id              (:channel-id event-data)
-          discord-message-channel (:discord-message-channel cfg/config)]
-      (if (not (s/blank? args))
-        (if-let [target-channel-id (second (re-find df/channel-mention args))]
-          (if (not= channel-id target-channel-id)
-            (let [move-message-id    (:id event-data)
-                  _                  (mu/delete-message! discord-message-channel channel-id move-message-id)   ; Don't delete the original message unless we've validated everything
-                  target-message-id  (:id (mu/create-message! discord-message-channel
-                                                              target-channel-id
-                                                              :embed (assoc (cmd/embed-template)
-                                                                            :description (str "Continuing the conversation from " (mu/channel-link channel-id) "..."))))
-                  target-message-url (mu/message-url guild-id target-channel-id target-message-id)
-                  source-message-id  (:id (mu/create-message! discord-message-channel
-                                                              channel-id
-                                                              :embed (assoc (cmd/embed-template)
-                                                                            :description (str "Let's continue this conversation in " (mu/channel-link target-channel-id) " ([link](" target-message-url "))."))))
-                  source-message-url (mu/message-url guild-id channel-id source-message-id)]
-              (mu/edit-message! discord-message-channel
-                                target-channel-id
-                                target-message-id
-                                :embed (assoc (cmd/embed-template)
-                                              :description (str "Continuing the conversation from " (mu/channel-link channel-id)  " ([link](" source-message-url "))..."))))
-            (log/info "Cannot move a conversation to the same channel."))
-          (log/warn "Could not find target channel in move command."))
-        (log/warn "move-command! arguments missing a target channel.")))))
+(def slash-commands
+  [(stc/command "clj"
+                "Evaluates Clojure code"
+                :options [(stc/option "code" "The Clojure code to evaluate" :string :required true)])
+   (stc/command "move"
+                "Moves a conversation to the specified channel"
+                :options [(stc/option "channel" "The channel to continue the conversation in" :channel
+                                      :channel-types [:guild-text]
+                                      :required true)])])
+
+(defn- reply-privately!
+  "Replies to the interaction with a message that only the invoking user can see."
+  [interaction-id interaction-token text]
+  (mu/create-interaction-response! (:discord-message-channel cfg/config)
+                                   interaction-id
+                                   interaction-token
+                                   4
+                                   :data {:embeds [(assoc (cmd/embed-template) :description text)]
+                                          :flags  ephemeral-flag}))
+
+(defn- fail-privately!
+  "Replaces the response with a message that only the invoking user can see, telling them that something went wrong."
+  [interaction-token]
+  (try
+    (let [discord-message-channel (:discord-message-channel cfg/config)
+          application-id          (:discord-application-id cfg/config)]
+      (mu/delete-original-interaction-response! discord-message-channel application-id interaction-token)
+      (mu/create-followup-message! discord-message-channel
+                                   application-id
+                                   interaction-token
+                                   :embeds [(assoc (cmd/embed-template) :description "⚠️ Something went wrong while processing your command. Please try again later.")]
+                                   :flags  ephemeral-flag))
+    (catch Exception e
+      (u/log-exception e))))
+
+(slash-cmd/defhandler clj-slash-command
+  ["clj"]
+  {:keys [id token]}
+  [code]
+  (let [discord-message-channel (:discord-message-channel cfg/config)]
+    ; evaluation can take a couple of seconds but discord requires an answer within 3 seconds, so send a thinking... response and edit it afterwards
+    (mu/create-interaction-response! discord-message-channel id token 5)
+    (e/future*
+      (try
+        (mu/edit-original-interaction-response!
+          discord-message-channel
+          (:discord-application-id cfg/config)
+          token
+          :embeds [(assoc (cmd/embed-template) 
+                          :description (str "Code:\n```clojure\n" (truncate code max-displayed-code-length) "\n```\n"
+                                            (format-eval-result (eval-clj (extract-code code)))))])
+        (catch Exception e
+          (u/log-exception e)
+          (fail-privately! token))))))
+
+(slash-cmd/defhandler move-slash-command
+  ["move"]
+  {:keys [id token channel-id guild-id]}
+  [channel]
+  (cond
+    (nil? guild-id)        (reply-privately! id token "This command can only be used in a server channel.")
+    (= channel channel-id) (reply-privately! id token "Can't move the conversation to the same channel.")
+    :else
+    (let [discord-message-channel (:discord-message-channel cfg/config)
+          application-id          (:discord-application-id cfg/config)]
+      (mu/create-interaction-response! discord-message-channel id token 5)
+      (try
+        (let [target-message-id  (:id (mu/create-message! discord-message-channel
+                                                          channel
+                                                          :embed (assoc (cmd/embed-template)
+                                                                        :description (str "Continuing the conversation from " (mu/channel-link channel-id) "..."))))
+              target-message-url (mu/message-url guild-id channel target-message-id)
+              source-message-id  (:id (mu/edit-original-interaction-response!
+                                        discord-message-channel
+                                        application-id
+                                        token
+                                        :embeds     [(assoc (cmd/embed-template)
+                                                            :description (str "Let's continue this conversation in " (mu/channel-link channel) " ([link](" target-message-url "))."))]
+                                        :components [(cmps/action-row (cmps/link-button target-message-url :label "Link"))]))
+              source-message-url (mu/message-url guild-id channel-id source-message-id)]
+          (mu/edit-message! discord-message-channel
+                            channel
+                            target-message-id
+                            :embed      (assoc (cmd/embed-template)
+                                               :description (str "Continuing the conversation from " (mu/channel-link channel-id) " ([link](" source-message-url "))..."))
+                            :components [(cmps/action-row (cmps/link-button source-message-url :label "Link"))]))
+        (catch Exception e
+          (u/log-exception e)
+          (fail-privately! token))))))
+
+(slash-cmd/defpaths slash-command-paths
+  clj-slash-command
+  move-slash-command)
